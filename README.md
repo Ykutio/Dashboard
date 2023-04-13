@@ -1,6 +1,6 @@
 Admin Panel From Araik
 1 ) git clone https://github.com/Ykutio/dashboard.git
-2 ) go into dir "laravel8" : cd laravel8
+2 ) go into chosen dir "XXX" : cd XXX (XXX - folder's name)
 3 ) run install : composer install
 4 ) create ".env" file from ".env.example" file
 5 ) php artisan key:generate
