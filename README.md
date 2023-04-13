@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-# dashboard
 Admin Panel From Araik
 1 ) git clone https://github.com/Ykutio/dashboard.git
 2 ) go into dir "laravel8" : cd laravel8
