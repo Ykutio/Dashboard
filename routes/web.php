@@ -1,29 +1,56 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ProductsController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\AboutController;
+use App\Http\Controllers\ContactController;
+use App\Http\Controllers\RegController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\CartController;
+
 use App\Http\Controllers\Admin\IndexController;
 use App\Http\Controllers\Admin\LoginController;
 use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\ModelcarController;
 use App\Http\Controllers\Admin\CarController;
 
-/*
-  |--------------------------------------------------------------------------
-  | Web Routes
-  |--------------------------------------------------------------------------
-  |
-  | Here is where you can register web routes for your application. These
-  | routes are loaded by the RouteServiceProvider within a group which
-  | contains the "web" middleware group. Now create something great!
-  |
- */
 
+//Route::get( '/', function ()
+//{
+//    return view( 'user.index' );
+//} );
+Route::get( '/', [HomeController::class, 'index'] )->name( 'home' );
+Route::get( '/products', [ProductsController::class, 'allproducts'] )->name( 'products' );
+Route::get( '/product', [ProductController::class, 'oneproduct'] )->name( 'product' );
+Route::get( '/about', [AboutController::class, 'aboutus'] )->name( 'about' );//also about all types of weapons
+Route::get( '/contact', [ContactController::class, 'contactus'] )->name( 'contact' );//also write us
 
-Route::get( '/', function ()
+Route::prefix( 'log' )->group( function ()
 {
-    return view( 'welcome' );
+    Route::get( '/registration', [RegController::class, 'createuser'] )->name( 'user.create' );
+    Route::post( '/registration', [RegController::class, 'storeuser'] )->name( 'user.store' );
+    Route::post( '/in', [RegController::class, 'authorization'] )->name( 'authorization' );
+    Route::get( '/out', [RegController::class, 'destroycookie'] )->name( 'destroycookie' );
 } );
 
+Route::prefix( 'user' )->group( function ()
+{
+    Route::get( '/show/{id}', [UserController::class, 'showuser'] )->name( 'user.show' );
+    Route::get( '/edit/{id}', [UserController::class, 'edituser'] )->name( 'user.edit' );
+    Route::post( '/update/{id}', [UserController::class, 'updateuser'] )->name( 'user.update' );
+    Route::post( '/destroy/{id}', [UserController::class, 'destroyuser'] )->name( 'user.destroy' );
+} );
+
+Route::prefix( 'cart' )->group( function ()
+{
+    Route::get( '/show/{id}', [CartController::class, 'showcart'] )->name( 'cart.show' );
+    Route::get( '/edit/{id}', [CartController::class, 'editcart'] )->name( 'cart.edit' );
+    Route::post( '/update/{id}', [CartController::class, 'updatecart'] )->name( 'cart.update' );
+    Route::post( '/destroy/{id}', [CartController::class, 'destroycart'] )->name( 'cart.destroy' );
+} );
 
 Route::get( 'admin/login', [LoginController::class, 'index'] )->middleware( 'AdminLogin' )->name( 'LoginPageAdmin' );
 Route::post( 'admin/singin', [LoginController::class, 'singin'] )->middleware( 'AdminLogin' )->name( 'LoginAdmin' );
@@ -56,4 +83,3 @@ Route::middleware( 'admin' )->group( function ()
 
     } );
 } );
-
