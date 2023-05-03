@@ -48,7 +48,7 @@
                         <span class="fa fa-calendar "></span>
                         12 months full warranty
                     </p>
-                    <a href="#" class="btn btn-success" title="More">more »</a>
+                    <a href="#" class="btn btn-success" title="More">More »</a>
                 </div>
             </div>
             <div class="col-md-4">
@@ -67,7 +67,7 @@
                         <span class="fa fa-calendar "></span>
                         21 months full warranty
                     </p>
-                    <a href="#" class="btn btn-success" title="More">more »</a>
+                    <a href="#" class="btn btn-success" title="More">More »</a>
                 </div>
             </div>
             <div class="col-md-4">
@@ -86,7 +86,7 @@
                         <span class="fa fa-calendar "></span>
                         4 months full warranty
                     </p>
-                    <a href="#" class="btn btn-success" title="More">more »</a>
+                    <a href="#" class="btn btn-success" title="More">More »</a>
                 </div>
             </div>
         </div>

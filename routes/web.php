@@ -18,10 +18,6 @@ use App\Http\Controllers\Admin\ModelcarController;
 use App\Http\Controllers\Admin\CarController;
 
 
-//Route::get( '/', function ()
-//{
-//    return view( 'user.index' );
-//} );
 Route::get( '/', [HomeController::class, 'index'] )->name( 'home' );
 Route::get( '/products', [ProductsController::class, 'allproducts'] )->name( 'products' );
 Route::get( '/product', [ProductController::class, 'oneproduct'] )->name( 'product' );
