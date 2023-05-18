@@ -19,8 +19,8 @@ use App\Http\Controllers\Admin\CarController;
 
 
 Route::get( '/', [HomeController::class, 'index'] )->name( 'home' );
-Route::get( '/products', [ProductsController::class, 'allproducts'] )->name( 'products' );
-Route::get( '/product', [ProductController::class, 'oneproduct'] )->name( 'product' );
+Route::get( '/products/{id?}/{type?}', [ProductsController::class, 'allproducts'] )->name( 'products' );
+Route::get( '/product/{id}', [ProductController::class, 'oneproduct'] )->name( 'product' );
 Route::get( '/about', [AboutController::class, 'aboutus'] )->name( 'about' );//also about all types of weapons
 Route::get( '/contact', [ContactController::class, 'contactus'] )->name( 'contact' );//also write us
 
@@ -36,8 +36,8 @@ Route::prefix( 'user' )->group( function ()
 {
     Route::get( '/show/{id}', [UserController::class, 'showuser'] )->name( 'user.show' );
     Route::get( '/edit/{id}', [UserController::class, 'edituser'] )->name( 'user.edit' );
-    Route::post( '/update/{id}', [UserController::class, 'updateuser'] )->name( 'user.update' );
-    Route::post( '/destroy/{id}', [UserController::class, 'destroyuser'] )->name( 'user.destroy' );
+    Route::patch( '/update/{id}', [UserController::class, 'updateuser'] )->name( 'user.update' );
+    Route::delete( '/destroy/{id}', [UserController::class, 'destroyuser'] )->name( 'user.destroy' );
 } );
 
 Route::prefix( 'cart' )->group( function ()
