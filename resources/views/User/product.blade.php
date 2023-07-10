@@ -5,6 +5,7 @@
 @section('content')
 
 <!--source: http://www.prepbootstrap.com/bootstrap-template/product-details-->
+@dump($weapon)
 <main>
     <div class="container py-md-3 pl-md-5">
         <div class="row">
@@ -89,7 +90,9 @@
             </div>
         </div>
     </div>
-
+@dump($releatedProducts)
+@dump($weapon->views)
+@dump($showmostcommentedProduct)
     <!-- you need to include the shieldui css and js assets in order for the charts to work -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <link rel="stylesheet" type="text/css" href="http://www.shieldui.com/shared/components/latest/css/light-glow/all.min.css" />

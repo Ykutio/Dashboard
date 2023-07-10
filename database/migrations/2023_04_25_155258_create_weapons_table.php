@@ -23,6 +23,7 @@ class CreateWeaponsTable extends Migration
             $table->integer('country_id')->nullable();
             $table->string('image', 255)->nullable();
             $table->tinyInteger('status')->nullable();
+            $table->integer('views')->nullable();
             $table->timestamps();
         });
     }

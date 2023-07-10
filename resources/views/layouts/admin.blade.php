@@ -4,10 +4,11 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <!-- Meta, title, CSS, favicons, etc. -->
         <meta charset="utf-8">
+        <link rel="icon" type="images/x-icon" href="https://blog.vverh.digital/wp-content/uploads/2019/01/cropped-favicon-180x180.png" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Каталог Автомобилей - Админ. Панель</title>
+        <title>Dashboard</title>
         <!-- Bootstrap -->
         <link href="{{asset('/Administrator/vendors/bootstrap/dist/css/bootstrap.min.css')}}" rel="stylesheet">
         <link href="{{asset('/Administrator/vendors/iCheck/skins/flat/green.css')}}" rel="stylesheet">
@@ -38,7 +39,7 @@
                     <div class="left_col scroll-view">
                         <div class="navbar nav_title" style="border: 0;">
                             <a href="/admin" class="site_title">
-                                <img width="150" height="50" src="/Administrator/images/logo.jpg" alt="" />
+                                <img width="55" height="55" src="/Administrator/images/HomeLogo.jpg" alt="" />
                             </a>
                         </div>
 
@@ -61,9 +62,9 @@
                         <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
                             <div class="menu_section">
                                 <ul class="nav side-menu">
-                                    <li><a href="{{ route('brands.index') }}"><i class="fa fa-user"></i>Марки</span></a></li>
-                                    <li><a href="{{ route('modelcars.index') }}"><i class="fa fa-user"></i>Модели</span></a></li>
-                                    <li><a href="{{ route('cars.index') }}"><i class="fa fa-user"></i>Автомобили</span></a></li>
+                                    <li><a href="{{ route('types.index') }}"><i class="fa fa-user"></i>Типы</span></a></li>
+                                    <li><a href="{{ route('countries.index') }}"><i class="fa fa-user"></i>Страны</span></a></li>
+                                    <li><a href="{{ route('weapons.index') }}"><i class="fa fa-user"></i>Оружие</span></a></li>
                                     <li><a id="LogoutAdmin_2"><i class="fa fa-user"></i>Выход</span></a></li>
                                 </ul>
                             </div>

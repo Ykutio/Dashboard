@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use App\Models\User;
 use Session;
+use Illuminate\Support\Facades\Hash; //For hiddeng password in DB
 
 class RegController extends Controller {
 
@@ -30,7 +32,7 @@ class RegController extends Controller {
         ];
 
         $this->validate($request, [
-            'name' => 'required|string|min:1|max:30',
+//            'name' => 'required|string|min:1|max:30',
             'surname' => 'required|string|min:1|max:50',
             'email' => 'required|string|email|min:1|max:50|unique:users',
             'password' => 'required|string|confirmed|min:3|max:20'
@@ -40,8 +42,9 @@ class RegController extends Controller {
         $new_user->name = $request->input('name');
         $new_user->surname = $request->input('surname');
         $new_user->email = $request->input('email');
-        $new_user->password = $request->input('password');
         $new_user->_token = $request->input('_token');
+        $new_user->password = Hash::make($request->input('password'));
+//        dd($new_user);
 //        dd( $request->all() );
 
         $new_user->save();
@@ -50,9 +53,40 @@ class RegController extends Controller {
         return redirect()->route('home')->with('success', 'Ваша регистрация успешно завершенна');
     }
 
+    public function authorization(Request $request) {
+        dump($request);
+        $messages = [
+            'email.required' => 'Поле "Email" необходимо заполнить.',
+            'email.email' => 'Поле "Email" должно быть заполнено правильно.',
+            'password.required' => 'Поле "Пароль" необходимо заполнить.',
+            'password.min' => 'Поле "Пароль" должно содержать более 3 символов.',
+            'password.max' => 'Поле "Пароль" должно содержать менее 20 символов.',
+        ];
+        $this->validate($request, [
+            'email' => 'required|string|email|min:1|max:50',
+            'password' => 'required|string|min:3|max:20'
+                ], $messages);
+
+        $email = $request->input('email');
+        $password = $request->input('password');
+
+        $user = User::where('email', $email)->first(); //<- Перенес в модель Siteuser
+//        $user = Siteuser::getAuthorization();
+        if (!$user) {
+            return redirect()->back()->with('status', 'Вы не авторизированны, не найденно такой эл.почты');
+        }
+
+        if (!Hash::check($password, $user->password)) {
+            return redirect()->back()->with('status', 'Вы не авторизированны, ввели не правильный пароль');
+        }
+        Session::put('user_id', $user->id);
+
+        return redirect()->route('home')->with('success', 'Ваша авторизация успешно завершенна');
+    }
+
     public function destroycookie(Request $request) {
         $request->session()->flush();
-        return redirect()->route('index')->with('status', 'Выход был успешно завершен');
+        return redirect()->route('home')->with('status', 'Выход был успешно завершен');
     }
 
 }

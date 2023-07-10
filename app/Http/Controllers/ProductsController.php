@@ -8,7 +8,7 @@ use App\Models\Weapon;
 class ProductsController extends Controller {
 
     public function allproducts($type_id = null) {
-        $weapons = Weapon::getWeapons($type_id);
+        $weapons = Weapon::getWeapons((int)$type_id);
         return view('user.products', ['weapons' => $weapons]);
     }
 

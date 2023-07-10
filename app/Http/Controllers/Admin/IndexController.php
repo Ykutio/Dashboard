@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Admin;
-use App\Models\Brand;
-use App\Models\Modelcar;
-use App\Models\Car;
+use App\Models\Weapon;
+use App\Models\Type;
+use App\Models\Country;
 
 
 class IndexController extends BaseController
@@ -15,14 +15,13 @@ class IndexController extends BaseController
 
     public function index()
     {
-
-        $brands = Brand::all();
-        $models = Modelcar::all();
-        $cars = Car::all();
+        $weapons = Weapon::all();
+        $types = Type::all();
+        $countries = Country::all();
         return view('Administrator.index.index' , [
-            'brands' => $brands->count(),
-            'models' => $models->count(),
-            'cars' => $cars->count(),
+            'weapons' => $weapons->count(),
+            'types' => $types->count(),
+            'countries' => $countries->count()
         ]);
     }
 
