@@ -32,6 +32,7 @@ class WeaponRequest extends FormRequest
         $rules[ 'tacktical_descr' ] = 'required';
         $rules[ 'country' ] = 'required';
         $rules[ 'price' ] = 'required';
+        $rules[ 'quantity' ] = 'required';
 
         $data = $this->validationData();
         
@@ -67,7 +68,8 @@ class WeaponRequest extends FormRequest
             'description.required' => 'Описание не выбрано',
             'tacktical_descr.required' => 'Тех.описание не выбрано',
             'country.required' => 'Страна не выбрана',
-            'price.required' => 'Цена не выбрана'
+            'price.required' => 'Цена не выбрана',
+            'price.quantity' => 'Колличество не выбрано',
         ];
     }
 

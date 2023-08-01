@@ -75,8 +75,7 @@ class WeaponController extends BaseController {
      * @return \Illuminate\Http\Response
      */
     public function edit($id) {
-        $item = Weapon::find($id);
-        $itemTypeCountry = Weapon::getWeapon($id);
+        $item = Weapon::getWeapon($id);
 
         if (!$item) {
             return redirect()->back();
@@ -86,7 +85,6 @@ class WeaponController extends BaseController {
 
         return view('Administrator.weapons.edit', [
             'item' => $item,
-            'itemTypeCountry' => $itemTypeCountry,
             'types' => $types,
             'countries' => $countries
                 ]);

@@ -2,6 +2,8 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
         <link rel="icon" type="images/x-icon" href="https://blog.vverh.digital/wp-content/uploads/2019/01/cropped-favicon-180x180.png" />
         <title>@yield('title', 'MyWeapons')</title>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">
@@ -66,7 +68,8 @@
 
     <!-- Bootstrap core CSS -->
     <link href="https://getbootstrap.com/docs/5.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-
+    <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="font-awesome/css/font-awesome.min.css" />
     <!-- Favicons -->
     <link rel="apple-touch-icon" href="https://getbootstrap.com/docs/5.1/assets/img/favicons/apple-touch-icon.png" sizes="180x180">
     <link rel="icon" href="https://getbootstrap.com/docs/5.1/assets/img/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
@@ -375,6 +378,109 @@
                 width: 100%;
             }
         }
+        /* For Carusel on Products page */
+        .col-item
+        {
+            border: 2px solid #2323A1;
+            border-radius: 5px;
+            background: #FFF;
+        }
+        .col-item .photo img
+        {
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .col-item .info
+        {
+            padding: 10px;
+            border-radius: 0 0 5px 5px;
+            margin-top: 1px;
+        }
+        .col-item:hover .info {
+            background-color: rgba(215, 215, 244, 0.5); 
+        }
+        .col-item .price
+        {
+            /*width: 50%;*/
+            float: left;
+            margin-top: 5px;
+        }
+
+        .col-item .price h5
+        {
+            line-height: 20px;
+            margin: 0;
+        }
+
+        .price-text-color
+        {
+            color: #00990E;
+        }
+
+        .col-item .info .rating
+        {
+            color: #003399;
+        }
+
+        .col-item .rating
+        {
+            /*width: 50%;*/
+            float: left;
+            font-size: 17px;
+            text-align: right;
+            line-height: 52px;
+            margin-bottom: 10px;
+            height: 52px;
+        }
+
+        .col-item .separator
+        {
+            border-top: 1px solid #FFCCCC;
+        }
+
+        .clear-left
+        {
+            clear: left;
+        }
+
+        .col-item .separator p
+        {
+            line-height: 20px;
+            margin-bottom: 0;
+            margin-top: 10px;
+            text-align: center;
+        }
+
+        .col-item .separator p i
+        {
+            margin-right: 5px;
+        }
+        .col-item .btn-add
+        {
+            width: 50%;
+            float: left;
+        }
+
+        .col-item .btn-add
+        {
+            border-right: 1px solid #CC9999;
+        }
+
+        .col-item .btn-details
+        {
+            width: 50%;
+            float: left;
+            padding-left: 10px;
+        }
+        .controls
+        {
+            margin-top: 20px;
+        }
+        [data-slide="prev"]
+        {
+            margin-right: 10px;
+        }
     </style>
 
 
@@ -391,22 +497,19 @@
                             <a class="nav-link" aria-current="page" href="{{route('products')}}">Products</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{route('about')}}">About Us</a>
+                            <a class="nav-link" href="{{route('about')}}">About</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{route('contact')}}">Contact Us</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{route('user.create')}}">Registration</a>
+                            <a class="nav-link" href="{{route('contact')}}">Contacts</a>
                         </li>
                         @if($user_all_page)<!--эта переменная и вся связующая логика прописанна в AppServiceProvider-->
                         <p>{{$user_all_page->name}}</p>
                         <a href="{{route('user.show', $user_all_page->id)}}" class="nav-link px-2 text-white">Профиль</a>
                         <a href="{{route('destroycookie')}}" class="btn btn-warning">Выход</a>
                         @else
-                        <a href="{{route('user.create')}}" class="btn btn-outline-light me-2">Вход/Регистрация</a>
-                        @endif
+                        <a href="{{route('user.create')}}" class="btn btn-outline-light me-2">Регистрация</a>
                         @include('user.log')
+                        @endif
                     </ul>
 
                     <form class="d-flex" role="search" action="{{route('search')}}" method="get">
@@ -415,6 +518,7 @@
                         <button class="btn btn-outline-success" type="submit">Search</button>
                     </form>
                 </div>
+                <a class="fa fa-shopping-cart" href="{{route('cartIndex')}}">Cart</a>
             </div>
         </nav>
     </header>
@@ -442,6 +546,37 @@ window.onclick = function (event) {
     if (event.target == modal) {
         modal.style.display = "none";
     }
+}
+//Slyder
+let slideIndex = 1;
+showSlides(slideIndex);
+
+function plusSlides(n) {
+    showSlides(slideIndex += n);
+}
+
+function currentSlide(n) {
+    showSlides(slideIndex = n);
+}
+
+function showSlides(n) {
+    let i;
+    let slides = document.getElementsByClassName("mySlides");
+    let dots = document.getElementsByClassName("dot");
+    if (n > slides.length) {
+        slideIndex = 1
+    }
+    if (n < 1) {
+        slideIndex = slides.length
+    }
+    for (i = 0; i < slides.length; i++) {
+        slides[i].style.display = "none";
+    }
+    for (i = 0; i < dots.length; i++) {
+        dots[i].className = dots[i].className.replace(" active", "");
+    }
+    slides[slideIndex - 1].style.display = "block";
+    dots[slideIndex - 1].className += " active";
 }
 </script>
 </body>

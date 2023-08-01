@@ -19,11 +19,12 @@ class CreateWeaponsTable extends Migration
             $table->integer('type_id')->nullable();
             $table->text('description')->nullable();
             $table->text('tacktical_descr')->nullable();
-            $table->integer('price')->nullable();
+            $table->integer('price')->default(0);
             $table->integer('country_id')->nullable();
             $table->string('image', 255)->nullable();
-            $table->tinyInteger('status')->nullable();
-            $table->integer('views')->nullable();
+            $table->tinyInteger('status')->default(0);
+            $table->integer('views')->default(0);
+            $table->integer('quantity')->default(0);
             $table->timestamps();
         });
     }

@@ -15,16 +15,21 @@ class Weapon extends Model {
 
     public static function getWeapon($id) {
         return Weapon::leftjoin('types', 'weapons.type_id', '=', 'types.id')
-                        ->leftjoin('countries', 'weapons.country_id', '=', 'countries.id')
-                        ->select('weapons.*', 'types.name as types_name', 'countries.name as country_name')
+                        ->leftjoin('countries', 'weapons.country_id', '=',
+                                'countries.id')
+                        ->select('weapons.*', 'types.name as types_name',
+                                'countries.name as country_name')
                         ->where('weapons.id', '=', $id)
                         ->first();
     }
 
-    public static function getWeapons(int $type_id = null, int $exclude_id = null, int $paginate = 9): LengthAwarePaginator {
+    public static function getWeapons(int $type_id = null,
+            int $exclude_id = null, int $paginate = 9): LengthAwarePaginator {
         $query = Weapon::leftjoin('types', 'weapons.type_id', '=', 'types.id')
-                ->leftjoin('countries', 'weapons.country_id', '=', 'countries.id')
-                ->select('weapons.*', 'types.name as types_name', 'countries.name as country_name');
+                ->leftjoin('countries', 'weapons.country_id', '=',
+                        'countries.id')
+                ->select('weapons.*', 'types.name as types_name',
+                'countries.name as country_name');
 
         if ($type_id) {
             $query->where('weapons.type_id', '=', $type_id);
@@ -34,6 +39,16 @@ class Weapon extends Model {
             $query->where('weapons.id', '!=', $exclude_id);
         }
         return $query->paginate($paginate);
+    }
+
+    public static function getWeaponsForSlyder() {
+        return Weapon::leftjoin('types', 'weapons.type_id', '=', 'types.id')
+                        ->leftjoin('countries', 'weapons.country_id', '=',
+                                'countries.id')
+                        ->select('weapons.*', 'types.name as types_name',
+                                'countries.name as country_name')
+                        ->orderBy('views', 'DESC')
+                        ->limit(5)->get();
     }
 
 // For this way -> wil be updated timestamp in DB
@@ -68,6 +83,7 @@ class Weapon extends Model {
         $weapon->tacktical_descr = $request->tacktical_descr;
         $weapon->country_id = $request->country;
         $weapon->price = $request->price;
+        $weapon->quantity = $request->quantity;
         if ($request->hasFile('image')) {
             $destination = 'uploads/weapons';
             $extension = $request->file('image')->getClientOriginalExtension();
@@ -91,6 +107,7 @@ class Weapon extends Model {
         $weapons->tacktical_descr = $request->tacktical_descr;
         $weapons->country_id = $request->country;
         $weapons->price = $request->price;
+        $weapons->quantity = $request->quantity;
         if ($request->hasFile('image')) {
             $destination = 'uploads/weapons';
             $extension = $request->file('image')->getClientOriginalExtension();

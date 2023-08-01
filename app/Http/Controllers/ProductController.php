@@ -17,11 +17,11 @@ class ProductController extends Controller {
         }
         $releatedProducts = Weapon::getWeapons($weapon->type_id, $id, 3);
         Weapon::getCountViews($weapon);
-        $showmostcommentedProduct = Weapon::showMostViewedPrduct();
+        $showMostViewedPrduct = Weapon::showMostViewedPrduct();
         return view('user.product', [
             'weapon' => $weapon,
             'releatedProducts' => $releatedProducts,
-            'showmostcommentedProduct' => $showmostcommentedProduct
+            'showMostViewedPrduct' => $showMostViewedPrduct
         ]);
     }
 

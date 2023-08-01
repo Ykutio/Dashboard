@@ -40,6 +40,7 @@
                         <th>{{ trans('admin.weapon.description') }}</th>
                         <th>{{ trans('admin.weapon.tacktical_descr') }}</th>
                         <th>{{ trans('admin.weapon.views') }}</th>
+                        <th>{{ trans('admin.weapon.quantity') }}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -82,6 +83,9 @@
                         </td>
                         <td>
                             {{$item->views}}
+                        </td>
+                        <td>
+                            {{$item->quantity}}
                         </td>
                         <td>
                             <a class="btn btn-primary btn-sm pull-right" 
