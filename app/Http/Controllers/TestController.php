@@ -31,9 +31,7 @@ class TestController extends Controller {
 
     public function showCartItems() {
         $user_id = Session::get('user_id');
-
         $items = Cart::session($user_id)->getContent();
-        dd($items);
     }
     public function index() {
         return view('user.testpage',
