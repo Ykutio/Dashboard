@@ -4,34 +4,143 @@
 
 @section('content')
 
-<main>
-    <!--source : http://www.prepbootstrap.com/bootstrap-template/featured-items-->
-    <section class="py-5 text-center container">
-        <div class="row py-lg-5">
-            <div class="col-lg-6 col-md-8 mx-auto">
-                <h1 class="fw-light">Album example</h1>
-                <p class="lead text-body-secondary">Something short and leading about the collection below—its contents, the creator, etc. Make it short and sweet, but not too short so folks don’t simply skip over it entirely.</p>
-                <p>
-                    <a href="#" class="btn btn-primary my-2">Main call to action</a>
-                    <a href="#" class="btn btn-secondary my-2">Secondary action</a>
-                </p>
+<style>
+    * {box-sizing: border-box}
+    body {font-family: Verdana, sans-serif; margin:0}
+    .mySlides {display: none}
+    img {vertical-align: middle;}
+
+    /* Slideshow container */
+    .slideshow-container {
+        max-width: 35%;
+        position: relative;
+        margin: auto;
+    }
+
+    /* Next & previous buttons */
+    .prev, .next {
+        cursor: pointer;
+        position: absolute;
+        top: 50%;
+        width: auto;
+        padding: 16px;
+        margin-top: -22px;
+        color: green;
+        font-weight: bold;
+        font-size: 18px;
+        transition: 0.6s ease;
+        border-radius: 0 3px 3px 0;
+        user-select: none;
+    }
+
+    /* Position the "next button" to the right */
+    .next {
+        right: 0;
+        border-radius: 3px 0 0 3px;
+    }
+
+    /* On hover, add a black background color with a little bit see-through */
+    .prev:hover, .next:hover {
+        background-color: rgba(0,0,0,0.8);
+    }
+
+    /* Caption text */
+    .text {
+        color: #717171;
+        font-size: 30px;
+        padding: 28px 12px;
+        position: absolute;
+        bottom: 4px;
+        width: 100%;
+        text-align: center;
+    }
+
+    /* Number text (1/4 etc) */
+    .numbertext {
+        color: #717171;
+        font-size: 12px;
+        padding: 8px 12px;
+        position: absolute;
+        top: 0;
+    }
+
+    /* The dots/bullets/indicators */
+    .dot {
+        cursor: pointer;
+        height: 15px;
+        width: 15px;
+        margin: 0 2px;
+        background-color: #bbb;
+        border-radius: 50%;
+        display: inline-block;
+        transition: background-color 0.6s ease;
+    }
+
+    .active, .dot:hover {
+        background-color: #717171;
+    }
+
+    /* Fading animation */
+    .fade {
+        animation-name: fade;
+        animation-duration: 1.5s;
+    }
+
+    @keyframes fade {
+        from {opacity: .7} 
+        to {opacity: 1}
+    }
+
+    /* On smaller screens, decrease text size */
+    @media only screen and (max-width: 300px) {
+        .prev, .next,.text {font-size: 11px}
+    }
+</style>
+</head>
+<body>
+<h2 style="text-align: center;">Самые просматриваемые продукты</h2>
+    <div class="slideshow-container">       
+        @foreach($weaponsForSlyder as $weapon)
+        <div class="mySlides">
+            <div class="numbertext">{{$loop->index+1}} / 5</div>
+            <img src="https://www.prepbootstrap.com/Content/images/template/productslider/product_001.jpg" style="width:100%">
+            <div class="text">{{ $weapon->name }}</div>
+            <div class="row md-4 p-8">
+                <div class="col-md-4">
+                    <i class="fa fa-shopping-cart"></i><a href="#">Add to cart</a>
+                </div>
+                <div class="col-md-4 offset-md-4">
+                    <i class="fa fa-list"></i><a href="{{route('product',$weapon->id)}}">More details</a>
+                </div>
             </div>
         </div>
-    </section>
+        @endforeach
 
+        <a class="prev" onclick="plusSlides(-1)">❮</a>
+        <a class="next" onclick="plusSlides(1)">❯</a>
+
+    </div>
+    <br>
+
+    <div style="text-align:center">
+        <span class="dot" onclick="currentSlide(1)"></span> 
+        <span class="dot" onclick="currentSlide(2)"></span> 
+        <span class="dot" onclick="currentSlide(3)"></span> 
+        <span class="dot" onclick="currentSlide(4)"></span> 
+        <span class="dot" onclick="currentSlide(5)"></span> 
+    </div>
+
+    <!--CONTENT_START-->
     <div class="album py-5 bg-body-tertiary">
         <div class="container">
-            @dump(request()->input('page'))
-            @dump(request())
-            <!--@dump(get_class_methods($weapons))-->
-            @dump($weapons->currentPage())
-            @dump($weapons->perPage())<!--9-->
             <div class="container">
                 <div class="row style_featured">
                     <?php
+                    //Dla korrektnoi numeracii produkcii po stranicam
                     $i = 1;
                     if ($weapons->currentPage() !== 1) {
-                        $i = ($weapons->currentPage() - 1) * $weapons->perPage() + 1;
+                        $i = ($weapons->currentPage() - 1) * $weapons->perPage()
+                                + 1;
                     }
                     ?>
                     @foreach($weapons as $weapon)
@@ -78,13 +187,13 @@
 
         </div>
     </div>
-    <nav aria-label="Page navigation example">
+     <nav aria-label="Page navigation example">
         <ul class="pagination justify-content-center">
             <h6 class="display-6">
                 {{$weapons->links('vendor.pagination.default')}}
             </h6>
         </ul>
     </nav>
-
-</main>
+</body>
+</html>
 @endsection

@@ -7,11 +7,6 @@
 <main>
 <section>
     <div class="container">
-
-        <div class="alert alert-warning text-center my-4">
-            Looking for a more detailed example? Checkout the <a href="https://bootstrapcreative.com/shop/bootstrap-4-toolkit/" target="_blank">Bootstrap 4 Templates Kit</a>
-        </div>
-
         <div class="row justify-content-center">
             <div class="col-12 col-md-8 col-lg-8 col-xl-6">
                 <div class="row">

@@ -95,10 +95,16 @@
                                 <span class="required">*</span>
                             </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <select name="country"  >
-                                    <option value="0">{{ $itemTypeCountry->country_name }}</option>
-                                    @foreach($countries as  $val)
-                                    <option value="{{$val->id}}">{{$val->name}}</option>
+                                <select name="country">
+                                    <option value="0">{{ trans('admin.weapon.select_country') }}</option>
+                                    @foreach($countries as $val)
+                                    @php
+                                    $selected = '';
+                                    if($val->id == $item->country_id){
+                                    $selected = 'selected';
+                                    }
+                                    @endphp
+                                    <option {{$selected}} value="{{$val->id}}">{{$val->name}}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -149,6 +155,21 @@
                             </div>
                         </div>
 
+                        <div class="form-group {{ $errors->has('quantity') ? 'bad' : '' }}">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="quantity">
+                                {{ trans('admin.weapon.quantity') }}
+                                <span class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input type="text"
+                                       value="@if(!empty($item->quantity)){{ $item->quantity }} @else{{old('quantity')}} @endif" 
+                                       name="quantity" 
+                                       class="form-control col-md-7 col-xs-12"
+                                       required
+                                       >
+                            </div>
+                        </div>
+
                         <div class="form-group {{ $errors->has('types_name') ? 'bad' : '' }}">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="type">
                                 {{  trans('admin.weapon.select_type')}}
@@ -156,9 +177,15 @@
                             </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
                                 <select name="type">
-                                    <option value="0">{{ $itemTypeCountry->types_name }}</option>
+                                    <option value="0">{{ $item->types_name }}</option>
                                     @foreach($types as  $val)
-                                    <option value="{{$val->id}}">{{$val->name}}</option>
+                                    @php
+                                    $selected = '';
+                                    if($val->id == $item->type_id){
+                                    $selected = 'selected';
+                                    }
+                                    @endphp
+                                    <option {{$selected}} value="{{$val->id}}">{{$val->name}}</option>
                                     @endforeach
                                 </select>
                             </div>

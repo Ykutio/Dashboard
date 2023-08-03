@@ -22,7 +22,7 @@ class HomeController extends Controller {
         $visitCounter = 0;
         if ($user_id) {
 //            $user = Siteuser::getUserForShowCoverPage();
-            $user = User::where( 'id', $user_id )->first(); //<- Перенес в модель Siteuser
+            $user = User::where('id', $user_id)->first(); //<- Перенес в модель Siteuser
             //$cookie = cookie($user->name, 'value', $minutes);// setCookie by php
             if (cookie($user->name)) {
                 $visitCounter = cookie($user->name, $visitCounter, $minutes);
@@ -35,13 +35,15 @@ class HomeController extends Controller {
             //Cookie::queue( $user->name, $request->test, $minutes ); // Second variant setCookie and then getCookie
             //$cookie = Cookie::get( 'name' );
         }
-        return view('user.index', [
+        return view('user.index',
+                [
             'types' => $types,
             'user' => $user,
             'response' => $response,
             'value' => $value,
             'visitCounter' => $visitCounter
                 //'cookie' => $cookie
-                ]);
+        ]);
     }
+
 }

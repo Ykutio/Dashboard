@@ -7,7 +7,7 @@
     <div class="x_panel admin_container">
         <div class="x_title">
             <h2>{{ trans('admin.weapon.main_title') }}</h2>
-            <a class="btn btn-primary btn-sm pull-right" href="{{ route('weapons.create') }}"> 
+            <a class="btn btn-primary btn-sm pull-right" href="{{ route('weapons.create') }}">
                 <i class="fa fa-plus"></i> {{ trans('admin.weapon.add') }}
             </a>
             <div class="clearfix"></div>
@@ -40,6 +40,7 @@
                         <th>{{ trans('admin.weapon.description') }}</th>
                         <th>{{ trans('admin.weapon.tacktical_descr') }}</th>
                         <th>{{ trans('admin.weapon.views') }}</th>
+                        <th>{{ trans('admin.weapon.quantity') }}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -52,7 +53,7 @@
                     @forelse ($items as $key =>  $item)
                     <tr style="cursor:move"  >
                         <td class="text-center sort" id="sort{{$key}}" data-id="{{$item->id}}" data-ordering ="{{ $item->sort }}">
-                            {{$item->sort}}.{{ $i++ }}
+                            {{$item->sort}}{{ $i++ }}
                         </td>
                         <td>
                             <div class="iradio">
@@ -84,7 +85,10 @@
                             {{$item->views}}
                         </td>
                         <td>
-                            <a class="btn btn-primary btn-sm pull-right" 
+                            {{$item->quantity}}
+                        </td>
+                        <td>
+                            <a class="btn btn-primary btn-sm pull-right"
                                href="{{ route('weapons.edit' , $item->id) }}"> <i class="fa fa-edit"></i> {{ trans('admin.edit') }}</a>
                             <button class="btn btn-danger btn-sm pull-right deleteItem" data-id="{{ $item->id }}"> <i class="fa fa-trash"></i> {{ trans('admin.remove') }}</button>
                         </td>
@@ -105,7 +109,7 @@
     <div class="x_title">
         <img src="/Administrator/images/not_found.png" alt="image" width="20" height="20" >
         {{ trans('admin.weapon.add') }}
-        <a class="btn btn-primary btn-sm pull-right" href="{{ route('weapons.create') }}"> 
+        <a class="btn btn-primary btn-sm pull-right" href="{{ route('weapons.create') }}">
             <i class="fa fa-plus"></i> {{ trans('admin.add') }}
         </a>
         <div class="clearfix"></div>

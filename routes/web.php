@@ -9,6 +9,7 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\RegController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\SearchController;
+use App\Http\Controllers\TestController;
 use App\Http\Controllers\Admin\IndexController;
 use App\Http\Controllers\Admin\LoginController;
 use App\Http\Controllers\Admin\WeaponController;
@@ -20,6 +21,11 @@ Route::get('/products/{id?}/{type?}', [ProductsController::class, 'allproducts']
 Route::get('/product/{id}', [ProductController::class, 'oneproduct'])->name('product');
 Route::get('/about', [AboutController::class, 'aboutus'])->name('about'); //also about all types of weapons
 Route::get('/contact', [ContactController::class, 'contactus'])->name('contact'); //also write us
+
+Route::get('/test', [TestController::class, 'testing'])->name('test');
+Route::get('/show_cart_items', [TestController::class, 'showCartItems'])->name('showCartItems');
+Route::get('/cart', [TestController::class, 'index'])->name('cartIndex');
+Route::post('/add_to_cart', [TestController::class, 'addToCart'])->name('addToCart');
 
 Route::prefix('log')->group(function () {
     Route::get('/registration', [RegController::class, 'createuser'])->name('user.create');
