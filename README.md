@@ -1,4 +1,4 @@
-Admin Panel From Araik
+Admin Panel
 1 ) git clone https://github.com/Ykutio/dashboard.git
 2 ) go into chosen dir "XXX" : cd XXX (XXX - folder's name)
 3 ) run install : composer install
