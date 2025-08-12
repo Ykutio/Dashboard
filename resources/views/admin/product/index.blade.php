@@ -18,6 +18,12 @@
                     <h4><i class="icon fa fa-check"></i>{{ session( 'success') }}</h4>
                 </div>
             @endif
+            @if(session('info'))
+                <div class="alert alert-danger alert-block" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">x</button>
+                    <h4><i class="icon fa fa-check"></i>{{ session( 'info') }}</h4>
+                </div>
+            @endif
         </div>
     </div>
 

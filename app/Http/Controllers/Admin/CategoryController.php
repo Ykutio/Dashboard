@@ -3,9 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\StoreCategoryRequest;
+use App\Http\Requests\Admin\UpdateCategoryRequest;
 use App\Models\Category;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class CategoryController extends Controller
@@ -25,13 +26,10 @@ class CategoryController extends Controller
     }
 
 
-    public function store(Request $request): RedirectResponse
+    public function store(StoreCategoryRequest $request): RedirectResponse
     {
-        $new_category = new Category();
-        $new_category->name = $request->name;
-        $new_category->description = $request->description;
-        $new_category->status = $request->status;
-        $new_category->save();
+        $validatedData = $request->validated(); // The validated data is automatically available
+        Category::create($validatedData);
 
         return redirect()
             ->back()
@@ -45,16 +43,14 @@ class CategoryController extends Controller
         ]);
     }
 
-    public function update(Request $request, Category $category): RedirectResponse
+    public function update(UpdateCategoryRequest $request, Category $category): RedirectResponse
     {
-        $category->name = $request->name;
-        $category->description = $request->description;
-        $category->status = $request->status;
-        $category->save();
+        $validated = $request->validated(); // The validated data is automatically available
+        $category->update($validated);
 
         return redirect()
             ->route('category.index')
-            ->with('success', 'Категория была успешно обнавленна!');
+            ->with('success', 'Категория была успешно обновленна!');
     }
 
     public function destroy(Category $category): RedirectResponse
@@ -63,6 +59,6 @@ class CategoryController extends Controller
 
         return redirect()
             ->back()
-            ->with('info','Категория была успешно удалена!');
+            ->with('info', 'Категория была успешно удалена!');
     }
 }

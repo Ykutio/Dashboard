@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\StoreProductRequest;
+use App\Http\Requests\Admin\UpdateProductRequest;
 use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Country;
@@ -44,13 +46,10 @@ class ProductController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request): RedirectResponse
+    public function store(StoreProductRequest $request): RedirectResponse
     {
-        $new_category = new Product();
-        $new_category->name = $request->name;
-        $new_category->description = $request->description;
-        $new_category->status = $request->status;
-        $new_category->save();
+        $validatedData = $request->validated(); // The validated data is automatically available
+        Product::create($validatedData);
 
         return redirect()
             ->back()
@@ -77,16 +76,14 @@ class ProductController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Product $brand): RedirectResponse
+    public function update(UpdateProductRequest $request, Product $product): RedirectResponse
     {
-        $brand->name = $request->name;
-        $brand->description = $request->description;
-        $brand->status = $request->status;
-        $brand->save();
+        $validated = $request->validated(); // The validated data is automatically available
+        $product->update($validated);
 
-        return redirect()->
-        route('product.index')
-            ->with('success', 'Продукт был успешно обнавлен!');
+        return redirect()
+            ->route('product.index')
+            ->with('success', 'Продукт был успешно обновлен!');
     }
 
     /**

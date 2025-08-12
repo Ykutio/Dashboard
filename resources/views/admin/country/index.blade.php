@@ -106,5 +106,5 @@
             </div>
         </div>
     </section>
-
+    {{ $countries->links() }}
 @endsection

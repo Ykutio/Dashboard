@@ -3,11 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\StoreBrandRequest;
+use App\Http\Requests\Admin\UpdateBrandRequest;
 use App\Models\Brand;
-use App\Models\Category;
 use App\Models\Country;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class BrandController extends Controller
@@ -39,13 +39,10 @@ class BrandController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request): RedirectResponse
+    public function store(StoreBrandRequest $request): RedirectResponse
     {
-        $new_category = new Brand();
-        $new_category->name = $request->name;
-        $new_category->description = $request->description;
-        $new_category->status = $request->status;
-        $new_category->save();
+        $validatedData = $request->validated(); // The validated data is automatically available
+        Brand::create($validatedData);
 
         return redirect()
             ->back()
@@ -68,16 +65,14 @@ class BrandController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Brand $brand): RedirectResponse
+    public function update(UpdateBrandRequest $request, Brand $brand): RedirectResponse
     {
-        $brand->name = $request->name;
-        $brand->description = $request->description;
-        $brand->status = $request->status;
-        $brand->save();
+        $validated = $request->validated(); // The validated data is automatically available
+        $brand->update($validated);
 
         return redirect()
             ->route('brand.index')
-            ->with('success', 'Бренд был успешно обнавлен!');
+            ->with('success', 'Бренд был успешно обновлен!');
     }
 
     /**
@@ -89,6 +84,6 @@ class BrandController extends Controller
 
         return redirect()
             ->back()
-            ->with('info','Бренд был успешно удален!');
+            ->with('info', 'Бренд был успешно удален!');
     }
 }

@@ -9,9 +9,21 @@ use Illuminate\Pagination\LengthAwarePaginator;
 
 class Product extends Model
 {
+    protected $fillable = [
+        'name',
+        'description',
+        'img',
+        'price',
+        'brand_id',
+        'cat_id',
+        'country_id',
+        'quantity',
+        'status'
+    ];
+
     use HasFactory;
 
-    public static function product_count(): int
+    public static function productCount(): int
     {
         return Product::all()->count();
     }

@@ -16,6 +16,15 @@
                     <h1 class="m-0" style="text-align:right;">Добавить бренд</h1>
                 </div>
             </div>
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
             @if(session('success'))
                 <div class="alert alert-default-success" role="alert">
                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">x</button>
@@ -31,13 +40,13 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="card card-primary">
-                        <form action="{{ route('product.store') }}" method="POST">
+                        <form action="{{ route('brand.store') }}" method="POST">
                             @csrf
                             <div class="card-body">
                                 <div class="form-group">
                                     <label for="name">Название бренда</label>
                                     <input type="text" class="form-control" id="name" name="name"
-                                           placeholder="Введите название бренда" required>
+                                           placeholder="Введите название бренда" value="{{ old('name') }}" required>
                                 </div>
                                 <div class="form-group">
                                     <label for="country_id">Страна производитель бренда</label>
@@ -59,7 +68,7 @@
                                 <button type="submit" class="btn btn-primary">Подтвердить</button>
                                 <button type="reset" class="btn btn-outline-info">Отменить</button>
                                 <button type="reset" class="btn btn-outline-secondary"
-                                        onclick="location.href='{{ route('product.index') }}';">Вернуться
+                                        onclick="location.href='{{ route('brand.index') }}';">Вернуться
                                 </button>
                             </div>
                         </form>

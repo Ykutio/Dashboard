@@ -8,9 +8,11 @@ use Illuminate\Pagination\LengthAwarePaginator;
 
 class Category extends Model
 {
+    protected $fillable  = ['name', 'status'];
+
     use HasFactory;
 
-    public static function category_count(): int
+    public static function categoryCount(): int
     {
         return Category::all()
             ->count();

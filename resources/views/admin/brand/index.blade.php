@@ -18,6 +18,12 @@
                     <h4><i class="icon fa fa-check"></i>{{ session( 'success') }}</h4>
                 </div>
             @endif
+            @if(session('info'))
+                <div class="alert alert-danger alert-block" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">x</button>
+                    <h4><i class="icon fa fa-check"></i>{{ session( 'info') }}</h4>
+                </div>
+            @endif
         </div>
     </div>
 
@@ -85,7 +91,7 @@
 
                                             <div class="col-6 col-md-4" style="">
                                                 <form action="{{ route('brand.destroy', $brand['id']) }}"
-                                                      method="brand">
+                                                      method="POST">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="btn btn-danger btn-sm delete-btn">
@@ -106,5 +112,5 @@
             </div>
         </div>
     </section>
-
+    {{ $brands->links() }}
 @endsection

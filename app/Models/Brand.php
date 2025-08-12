@@ -6,12 +6,15 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class Brand extends Model
 {
+    protected $fillable  = ['name', 'country_id', 'status'];
+
     use HasFactory;
 
-    public static function brand_count(): int
+    public static function brandCount(): int
     {
         return Brand::all()->count();
     }
@@ -19,9 +22,10 @@ class Brand extends Model
     /**
      * @return Collection|static
      */
-    public static function brands(): Collection|array
+    public static function brands(): LengthAwarePaginator
     {
-        return Brand::orderBy('id', 'asc')->get();
+        return Brand::orderBy('id', 'asc')
+            ->paginate(10);
     }
 
     public function country(): BelongsTo

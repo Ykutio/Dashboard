@@ -2,23 +2,25 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class Country extends Model
 {
+    protected $fillable  = ['name', 'status'];
+
     use HasFactory;
 
-    public static function country_count(): int
+    public static function countryCount(): int
     {
         return Country::all()
             ->count();
     }
 
-    public static function countries(): Collection|array
+    public static function countries(): LengthAwarePaginator
     {
         return Country::orderBy('id', 'asc')
-            ->get();
+            ->paginate(5);
     }
 }

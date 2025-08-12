@@ -33,7 +33,7 @@
                 <div class="col-lg-3 col-6">
                     <div class="small-box bg-info">
                         <div class="inner">
-                            <h3>{{ $product_count }}</h3>
+                            <h3>{{ $productCount }}</h3>
                             <p>Продукты</p>
                         </div>
                         <div class="icon">
@@ -45,7 +45,7 @@
                 <div class="col-lg-3 col-6">
                     <div class="small-box bg-success">
                         <div class="inner">
-                            <h3>{{ $brand_count }}</h3>
+                            <h3>{{ $brandCount }}</h3>
                             <p>Бренды</p>
                         </div>
                         <div class="icon">
@@ -57,7 +57,7 @@
                 <div class="col-lg-3 col-6">
                     <div class="small-box bg-warning">
                         <div class="inner">
-                            <h3>{{ $category_count }}</h3>
+                            <h3>{{ $categoryCount }}</h3>
                             <p>Категории</p>
                         </div>
                         <div class="icon">
@@ -69,7 +69,7 @@
                 <div class="col-lg-3 col-6">
                     <div class="small-box bg-danger">
                         <div class="inner">
-                            <h3>{{ $country_count }}</h3>
+                            <h3>{{ $countryCount }}</h3>
                             <p>Страны производители</p>
                         </div>
                         <div class="icon">

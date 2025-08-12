@@ -13,16 +13,16 @@ class HomeController extends Controller
 {
     public function index(): View
     {
-        $category_count = Category::category_count();
-        $brand_count = Brand::brand_count();
-        $product_count = Product::product_count();
-        $country_count = Country::country_count();
+        $categoryCount = Category::categoryCount();
+        $brandCount = Brand::brandCount();
+        $productCount = Product::productCount();
+        $countryCount = Country::countryCount();
 
         return view('admin.home.index', [
-            'category_count' => $category_count,
-            'brand_count' => $brand_count,
-            'product_count' => $product_count,
-            'country_count' => $country_count,
+            'categoryCount' => $categoryCount,
+            'brandCount' => $brandCount,
+            'productCount' => $productCount,
+            'countryCount' => $countryCount,
         ]);
     }
 }

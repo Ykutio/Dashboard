@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\StoreCountryRequest;
+use App\Http\Requests\Admin\UpdateCountryRequest;
 use App\Models\Country;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -30,12 +32,10 @@ class CountryController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request): RedirectResponse
+    public function store(StoreCountryRequest $request): RedirectResponse
     {
-        $new_country = new Country();
-        $new_country->name = $request->name;
-        $new_country->status = $request->status;
-        $new_country->save();
+        $validatedData = $request->validated(); // The validated data is automatically available
+        Country::create($validatedData);
 
         return redirect()
             ->back()
@@ -55,15 +55,14 @@ class CountryController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Country $country): RedirectResponse
+    public function update(UpdateCountryRequest $request, Country $country): RedirectResponse
     {
-        $country->name = $request->name;
-        $country->status = $request->status;
-        $country->save();
+        $validated = $request->validated(); // The validated data is automatically available
+        $country->update($validated);
 
         return redirect()
             ->route('country.index')
-            ->with('success', 'Страна была успешно обнавленна!');
+            ->with('success', 'Страна была успешно обновленна!');
     }
 
     /**

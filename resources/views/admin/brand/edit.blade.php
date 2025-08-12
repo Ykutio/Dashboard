@@ -16,6 +16,15 @@
                     <h1 class="m-0" style="text-align:right;">Редактировать бренд: {{ $brand['name'] }}</h1>
                 </div>
             </div>
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
             @if(session('success'))
                 <div class="alert alert-default-success" role="alert">
                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">x</button>
@@ -31,7 +40,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="card card-primary">
-                        <form action="{{ route('product.update', $brand['id']) }}" method="POST">
+                        <form action="{{ route('brand.update', $brand['id']) }}" method="POST">
                             @csrf
                             @method('PUT')
                             <div class="card-body">
@@ -53,7 +62,15 @@
                                 <label for="status">Статус бренда</label>
                                 <select name="status" class="form-control">
                                     @foreach( BrandStatusEnum::getBrandStatusMap() as $key => $value)
-                                        <option value="{{ $key }}">{{ $value }}</option>
+                                        @php
+                                            $selected = '';
+                                        @endphp
+                                        @if($brand['status'] === $key )
+                                            @php
+                                                $selected = 'selected';
+                                            @endphp
+                                        @endif
+                                        <option {{ $selected }} value="{{ $key }}">{{ $value }}</option>
                                     @endforeach
                                 </select>
                             </div>

@@ -4,7 +4,7 @@
 
 @extends('layouts.admin_layout')
 
-@section('title', 'Редактировать статью')
+@section('title', 'Редактировать продукт')
 
 @section('content')
 
@@ -16,6 +16,15 @@
                     <h1 class="m-0" style="text-align:right;">Редактировать продукт: {{ $product['name'] }}</h1>
                 </div>
             </div>
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
             @if(session('success'))
                 <div class="alert alert-default-success" role="alert">
                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">x</button>
@@ -78,7 +87,15 @@
                                     <label for="status">Статус продукта</label>
                                     <select name="status" class="form-control">
                                         @foreach( ProductStatusEnum::getProductStatusMap() as $key => $value)
-                                            <option value="{{ $key }}">{{ $value }}</option>
+                                            @php
+                                                $selected = '';
+                                            @endphp
+                                            @if($product['status'] === $key )
+                                                @php
+                                                    $selected = 'selected';
+                                                @endphp
+                                            @endif
+                                            <option {{ $selected }} value="{{ $key }}">{{ $value }}</option>
                                         @endforeach
                                     </select>
                                 </div>
