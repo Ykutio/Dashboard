@@ -3,7 +3,7 @@
 @endphp
 @extends('layouts.admin_layout')
 
-@section('title', 'Добавить категорию')
+@section('title', 'Add category')
 
 @section('content')
 
@@ -12,7 +12,7 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1 class="m-0" style="text-align:right;">Добавить категорию</h1>
+                <h1 class="m-0" style="text-align:right;">Add new category</h1>
             </div>
         </div>
         @if ($errors->any())
@@ -43,10 +43,10 @@
                         @csrf
                         <div class="card-body">
                             <div class="form-group">
-                                <label for="name">Название категории</label>
-                                <input type="text" class="form-control" id="name" name="name" placeholder="Введите название категории" required>
+                                <label for="name">Category name</label>
+                                <input type="text" class="form-control" id="name" name="name" placeholder="Enter category name" required>
                             </div>
-                            <label for="status">Статус</label>
+                            <label for="status">Status</label>
                             <select name="status" class="form-control">
                                 @foreach( CategoryStatusEnum::getCategoryStatusMap() as $key => $value)
                                     <option value="{{ $key }}">{{ $value }}</option>
@@ -54,10 +54,10 @@
                             </select>
                         </div>
                         <div class="card-footer">
-                            <button type="submit" class="btn btn-primary">Подтвердить</button>
-                            <button type="reset" class="btn btn-outline-info">Отменить</button>
+                            <button type="submit" class="btn btn-primary">Confirm</button>
+                            <button type="reset" class="btn btn-outline-info">Cansel</button>
                             <button type="reset" class="btn btn-outline-secondary"
-                                    onclick="location.href='{{ route('category.index') }}';">Вернуться
+                                    onclick="location.href='{{ route('category.index') }}';">Back
                             </button>
                         </div>
                     </form>

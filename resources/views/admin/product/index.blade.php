@@ -1,6 +1,12 @@
+@php
+    use \App\Models\Enum\ProductStatusEnum;
+
+$currentPage = $products->currentPage();
+$perPage = $products->perPage();
+@endphp
 @extends('layouts.admin_layout')
 
-@section('title', 'Все продукты')
+@section('title', 'All products')
 
 @section('content')
 
@@ -9,9 +15,74 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0" style="text-align:right;">Все продукты</h1>
+                    <h1 class="m-0" style="text-align:right;">All products</h1>
                 </div>
             </div>
+            <form action="{{ route('product.index') }}" method="GET">
+                <div class="row mb-2">
+                    <select name="brand_id" class="form-control-sm" style="margin-right: 10px; margin-left: 7px">
+                        <option value="">All brands</option>
+                        @foreach( $brands as $value)
+                            @php
+                                $selected = '';
+                                if(
+                                    isset($filters['brand_id'])
+                                    && (int)$filters['brand_id'] === $value['id']
+                                    ){
+                                    $selected = 'selected';
+                                }
+                            @endphp
+                            <option {{ $selected }} value="{{ $value['id'] }}">{{ $value['name'] }}</option>
+                        @endforeach
+                    </select>
+                    <select name="cat_id" class="form-control-sm" style="margin-right: 10px; margin-left: 7px">
+                        <option value="">All categories</option>
+                        @foreach( $categories as $value)
+                            @php
+                                $selected = '';
+                                if(
+                                    isset($filters['cat_id'])
+                                    && (int)$filters['cat_id'] === $value['id']
+                                    ){
+                                    $selected = 'selected';
+                                }
+                            @endphp
+                            <option {{ $selected }} value="{{ $value['id'] }}">{{ $value['name'] }}</option>
+                        @endforeach
+                    </select>
+                    <select name="country_id" class="form-control-sm" style="margin-right: 10px; margin-left: 7px">
+                        <option value="">All countries</option>
+                        @foreach( $countries as $value)
+                            @php
+                                $selected = '';
+                                if(
+                                    isset($filters['country_id'])
+                                    && (int)$filters['country_id'] === $value['id']
+                                    ){
+                                    $selected = 'selected';
+                                }
+                            @endphp
+                            <option {{ $selected }} value="{{ $value['id'] }}">{{ $value['name'] }}</option>
+                        @endforeach
+                    </select>
+                    <select name="status" class="form-control-sm" style="margin-right: 10px; margin-left: 7px">
+                        <option value="">All statuses</option>
+                        @foreach( ProductStatusEnum::getProductStatusMap() as $key => $value)
+                            @php
+                                $selected = '';
+                                if(isset($filters['status']) && $filters['status'] === $key){
+                                    $selected = 'selected';
+                                }
+                            @endphp
+                            <option {{ $selected }} value="{{ $key }}">{{ $value }}</option>
+                        @endforeach
+                    </select>
+                    <button type="submit" class="btn btn-primary btn-sm">Apply filter</button>
+                    <button type="reset" class="btn btn-outline-secondary btn-sm" style="margin-left: 8px"
+                            onclick="location.href='{{ route('product.index') }}';">Reset
+                    </button>
+                </div>
+            </form>
             @if(session('success'))
                 <div class="alert alert-default-warning" role="alert">
                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">x</button>
@@ -39,38 +110,41 @@
                                 №
                             </th>
                             <th style="width: 6%" class="text-center">
-                                Название
+                                Name
                             </th>
                             <th style="width: 8%" class="text-center">
-                                Описание
+                                Description
                             </th>
                             <th style="width: 2%" class="text-center">
-                                Цена
+                                Price
                             </th>
                             <th style="width: 2%" class="text-center">
-                                Бренд
+                                Brand
                             </th>
                             <th style="width: 2%" class="text-center">
-                                Категория
+                                Category
                             </th>
                             <th style="width: 2%" class="text-center">
-                                Страна
+                                Country
                             </th>
                             <th style="width: 10%" class="text-center">
-                                Статус
+                                Status
                             </th>
                             <th style="width: 5%" class="text-center">
-                                Кол-во
+                                Quantity
                             </th>
                             <th style="width: 22%">
                             </th>
                         </tr>
                         </thead>
                         <tbody>
+                        @php
+                            $i = $currentPage === 1 ? 0 : ($currentPage - 1) * $perPage;
+                        @endphp
                         @foreach( $products as $key => $product )
                             <tr>
                                 <td>
-                                    {{ ++$key }}
+                                    {{ ++$i }}
                                 </td>
                                 <td>
                                     {{ $product['name'] }}
@@ -92,10 +166,10 @@
                                 </td>
                                 <td class="project-state">
                                     @if($product['status'] == 'active')
-                                        <span class="badge badge-success">Активный</span>
+                                        <span class="badge badge-success">Active</span>
                                     @endif
                                     @if( $product['status'] == 'inactive' )
-                                        <span class="badge badge-danger">Не Активный</span>
+                                        <span class="badge badge-danger">Not Active</span>
                                     @endif
                                 </td>
                                 <td>
@@ -109,7 +183,7 @@
                                                    href="{{ route('product.edit', $product['id']) }}">
                                                     <i class="fas fa-pencil-alt">
                                                     </i>
-                                                    Редактировать
+                                                    Edit
                                                 </a>
                                             </div>
 
@@ -121,7 +195,7 @@
                                                     <button type="submit" class="btn btn-danger btn-sm delete-btn">
                                                         <i class="fas fa-trash">
                                                         </i>
-                                                        Удалить
+                                                        Delete
                                                     </button>
                                                 </form>
                                             </div>
@@ -136,5 +210,5 @@
             </div>
         </div>
     </section>
-    {{ $products->links() }}
+    {{ $products->withQueryString()->links() }}
 @endsection

@@ -3,8 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\StoreBrandRequest;
-use App\Http\Requests\Admin\UpdateBrandRequest;
+use App\Http\Requests\Admin\Brand\BrandListRequest;
+use App\Http\Requests\Admin\Brand\StoreBrandRequest;
+use App\Http\Requests\Admin\Brand\UpdateBrandRequest;
 use App\Models\Brand;
 use App\Models\Country;
 use Illuminate\Http\RedirectResponse;
@@ -15,12 +16,16 @@ class BrandController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(): View
+    public function index(BrandListRequest $request): View
     {
-        $brands = Brand::brands();
+        $validatedData = $request->validated();
+        $brands = Brand::brandsByFilter($validatedData);
+        $countries = Country::getAllCountries();
 
         return view('admin.brand.index', [
-            'brands' => $brands
+            'brands' => $brands,
+            'countries' => $countries,
+            'filters' => $validatedData
         ]);
     }
 
@@ -29,7 +34,7 @@ class BrandController extends Controller
      */
     public function create(): View
     {
-        $countries = Country::countries();
+        $countries = Country::getAllCountriesPaginate();
 
         return view('admin.brand.create', [
             'countries' => $countries
@@ -46,7 +51,7 @@ class BrandController extends Controller
 
         return redirect()
             ->back()
-            ->with('success', 'Бренд был успешно добавлен!');
+            ->with('success', 'Brand added successfully!');
     }
 
     /**
@@ -54,7 +59,7 @@ class BrandController extends Controller
      */
     public function edit(Brand $brand): View
     {
-        $countries = Country::countries();
+        $countries = Country::getAllCountriesPaginate();
 
         return view('admin.brand.edit', [
             'brand' => $brand,
@@ -72,7 +77,7 @@ class BrandController extends Controller
 
         return redirect()
             ->route('brand.index')
-            ->with('success', 'Бренд был успешно обновлен!');
+            ->with('success', 'Brand updated successfully!');
     }
 
     /**
@@ -84,6 +89,6 @@ class BrandController extends Controller
 
         return redirect()
             ->back()
-            ->with('info', 'Бренд был успешно удален!');
+            ->with('info', 'Brand deleted successfully!');
     }
 }

@@ -3,21 +3,23 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\StoreCountryRequest;
-use App\Http\Requests\Admin\UpdateCountryRequest;
+use App\Http\Requests\Admin\Country\CountryListRequest;
+use App\Http\Requests\Admin\Country\StoreCountryRequest;
+use App\Http\Requests\Admin\Country\UpdateCountryRequest;
 use App\Models\Country;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class CountryController extends Controller
 {
-    public function index(): View
+    public function index(CountryListRequest $request): View
     {
-        $countries = Country::countries();
+        $validatedData = $request->validated();
+        $countries = Country::countriesByFilter($validatedData);
 
         return view('admin.country.index', [
-            'countries' => $countries
+            'countries' => $countries,
+            'filters' => $validatedData
         ]);
     }
 
@@ -39,7 +41,7 @@ class CountryController extends Controller
 
         return redirect()
             ->back()
-            ->with('success', 'Страна была успешно добавленна!');
+            ->with('success', 'Country added successfully!');
     }
 
     /**
@@ -62,7 +64,7 @@ class CountryController extends Controller
 
         return redirect()
             ->route('country.index')
-            ->with('success', 'Страна была успешно обновленна!');
+            ->with('success', 'Country updated successfully!');
     }
 
     /**
@@ -74,6 +76,6 @@ class CountryController extends Controller
 
         return redirect()
             ->back()
-            ->with('info','Страна была успешно удалена!');
+            ->with('info', 'Country deleted successfully!');
     }
 }

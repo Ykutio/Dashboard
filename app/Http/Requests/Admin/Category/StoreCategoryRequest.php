@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Requests\Admin;
+namespace App\Http\Requests\Admin\Category;
 
 use App\Models\Enum\CategoryStatusEnum;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class UpdateCategoryRequest extends FormRequest
+class StoreCategoryRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,7 +24,7 @@ class UpdateCategoryRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required', 'max:255', 'string'],
+            'name' => ['required', 'unique:categories,name', 'max:255', 'string'],
             'status' => ['required', 'string', Rule::in(array_keys(CategoryStatusEnum::getCategoryStatusMap()))],
         ];
     }

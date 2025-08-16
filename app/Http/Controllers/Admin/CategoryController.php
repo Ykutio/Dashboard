@@ -3,20 +3,23 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\StoreCategoryRequest;
-use App\Http\Requests\Admin\UpdateCategoryRequest;
+use App\Http\Requests\Admin\Category\CategoryListRequest;
+use App\Http\Requests\Admin\Category\StoreCategoryRequest;
+use App\Http\Requests\Admin\Category\UpdateCategoryRequest;
 use App\Models\Category;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 
 class CategoryController extends Controller
 {
-    public function index(): View
+    public function index(CategoryListRequest $request): View
     {
-        $categories = Category::categories();
+        $validatedData = $request->validated();
+        $categories = Category::categoriesByFilter($validatedData);
 
         return view('admin.category.index', [
-            'categories' => $categories
+            'categories' => $categories,
+            'filters' => $validatedData
         ]);
     }
 
@@ -33,7 +36,7 @@ class CategoryController extends Controller
 
         return redirect()
             ->back()
-            ->with('success', 'Категория была успешно добавленна!');
+            ->with('success', 'Category added successfully!');
     }
 
     public function edit(Category $category): View
@@ -50,7 +53,7 @@ class CategoryController extends Controller
 
         return redirect()
             ->route('category.index')
-            ->with('success', 'Категория была успешно обновленна!');
+            ->with('success', 'Category updated successfully!');
     }
 
     public function destroy(Category $category): RedirectResponse
@@ -59,6 +62,6 @@ class CategoryController extends Controller
 
         return redirect()
             ->back()
-            ->with('info', 'Категория была успешно удалена!');
+            ->with('info', 'Category deleted successfully!');
     }
 }

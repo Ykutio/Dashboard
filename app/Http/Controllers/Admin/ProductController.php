@@ -3,14 +3,14 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\StoreProductRequest;
-use App\Http\Requests\Admin\UpdateProductRequest;
+use App\Http\Requests\Admin\Product\ProductListRequest;
+use App\Http\Requests\Admin\Product\StoreProductRequest;
+use App\Http\Requests\Admin\Product\UpdateProductRequest;
 use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Country;
 use App\Models\Product;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class ProductController extends Controller
@@ -18,12 +18,21 @@ class ProductController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(): View
+    public function index(ProductListRequest $request): View
     {
-        $products = Product::products();
+        $validatedData = $request->validated();
+
+        $products = Product::productsByFilter($validatedData);
+        $brands = Brand::getAllBrands();
+        $countries = Country::getAllCountries();
+        $categories = Category::getAllCategories();
 
         return view('admin.product.index', [
-            'products' => $products
+            'products' => $products,
+            'brands' => $brands,
+            'countries' => $countries,
+            'categories' => $categories,
+            'filters' => $validatedData
         ]);
     }
 
@@ -32,9 +41,9 @@ class ProductController extends Controller
      */
     public function create(): View
     {
-        $categories = Category::categories();
-        $brands = Brand::brands();
-        $countries = Country::countries();
+        $categories = Category::getAllCategoriesPaginate();
+        $brands = Brand::getAllBrandsPaginate();
+        $countries = Country::getAllCountriesPaginate();
 
         return view('admin.product.create', [
             'categories' => $categories,
@@ -53,7 +62,7 @@ class ProductController extends Controller
 
         return redirect()
             ->back()
-            ->with('success', 'Продукт был успешно добавлен!');
+            ->with('success', 'Product added successfully!');
     }
 
     /**
@@ -61,9 +70,9 @@ class ProductController extends Controller
      */
     public function edit(Product $product): View
     {
-        $categories = Category::categories();
-        $brands = Brand::brands();
-        $countries = Country::countries();
+        $categories = Category::getAllCategoriesPaginate();
+        $brands = Brand::getAllBrandsPaginate();
+        $countries = Country::getAllCountriesPaginate();
 
         return view('admin.product.edit', [
             'product' => $product,
@@ -83,18 +92,18 @@ class ProductController extends Controller
 
         return redirect()
             ->route('product.index')
-            ->with('success', 'Продукт был успешно обновлен!');
+            ->with('success', 'Product updated successfully!');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Product $brand): RedirectResponse
+    public function destroy(Product $product): RedirectResponse
     {
-        $brand->delete();
+        $product->delete();
 
         return redirect()
             ->back()
-            ->with('info','Продукт был успешно удален!');
+            ->with('info', 'Product deleted successfully!');
     }
 }

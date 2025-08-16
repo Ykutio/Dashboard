@@ -1,6 +1,9 @@
+@php
+    use \App\Models\Enum\CategoryStatusEnum;
+@endphp
 @extends('layouts.admin_layout')
 
-@section('title', 'Все категории')
+@section('title', 'All categories')
 
 @section('content')
 
@@ -9,9 +12,26 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0" style="text-align:right;">Все категории</h1>
+                    <h1 class="m-0" style="text-align:right;">All categories</h1>
                 </div>
             </div>
+            <form action="{{ route('category.index') }}" method="GET">
+                <div class="row mb-2">
+                    <select name="status" class="form-control-sm" style="margin-right: 10px; margin-left: 7px">
+                        <option value="">All statuses</option>
+                        @foreach( CategoryStatusEnum::getCategoryStatusMap() as $key => $value)
+                            @php
+                                $selected = '';
+                                if(isset($filters['status']) && $filters['status'] === $key){
+                                    $selected = 'selected';
+                                }
+                            @endphp
+                            <option {{ $selected }} value="{{ $key }}">{{ $value }}</option>
+                        @endforeach
+                    </select>
+                    <button type="submit" class="btn btn-primary btn-sm">Apply filter</button>
+                </div>
+            </form>
             @if(session('success'))
                 <div class="alert alert-default-warning" role="alert">
                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">x</button>
@@ -39,13 +59,13 @@
                                 #
                             </th>
                             <th style="width: 10%">
-                                Название
+                                Name
                             </th>
                             <th style="width: 10%" class="text-center">
-                                Статус
+                                Status
                             </th>
                             <th style="width: 10%" class="text-center">
-                                Дата создания
+                                Created
                             </th>
                             <th style="width: 20%">
                             </th>
@@ -62,10 +82,10 @@
                                 </td>
                                 <td class="project-state">
                                     @if( $category['status'] == 'active' )
-                                        <span class="badge badge-success">Активный</span>
+                                        <span class="badge badge-success">Active</span>
                                     @endif
                                     @if( $category['status'] == 'inactive' )
-                                        <span class="badge badge-danger">Не Активный</span>
+                                        <span class="badge badge-danger">Not Active</span>
                                     @endif
                                 </td>
                                 <td>
@@ -79,7 +99,7 @@
                                                    href="{{ route('category.edit', $category['id']) }}">
                                                     <i class="fas fa-pencil-alt">
                                                     </i>
-                                                    Редактировать
+                                                    Edit
                                                 </a>
                                             </div>
 
@@ -91,7 +111,7 @@
                                                     <button type="submit" class="btn btn-danger btn-sm delete-btn">
                                                         <i class="fas fa-trash">
                                                         </i>
-                                                        Удалить
+                                                        Delete
                                                     </button>
                                                 </form>
                                             </div>
@@ -106,6 +126,6 @@
             </div>
         </div>
     </section>
-    {{ $categories->links() }}
+    {{ $categories->withQueryString()->links() }}
 
 @endsection

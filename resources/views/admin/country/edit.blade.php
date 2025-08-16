@@ -16,7 +16,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0" style="text-align:right;">Редактировать страну: {{ $country['name'] }}</h1>
+                    <h1 class="m-0" style="text-align:right;">Edit country: {{ $country['name'] }}</h1>
                 </div>
             </div>
             @if ($errors->any())
@@ -48,11 +48,11 @@
                             @method('PUT')
                             <div class="card-body">
                                 <div class="form-group">
-                                    <label for="name">Название страны</label>
+                                    <label for="name">Country name</label>
                                     <input type="text" class="form-control" id="name" name="name"
                                            value="{{ $country['name'] }}" placeholder="Введите название страны"
                                            required>
-                                    <label for="country">Статус</label>
+                                    <label for="country">Status</label>
                                     <select name="status" class="form-control">
                                         @foreach( CategoryStatusEnum::getCategoryStatusMap() as $key => $value)
                                             @php
@@ -69,10 +69,10 @@
                                 </div>
                             </div>
                             <div class="card-footer">
-                                <button type="submit" class="btn btn-primary">Подтвердить</button>
-                                <button type="reset" class="btn btn-outline-info">Отменить</button>
+                                <button type="submit" class="btn btn-primary">Confirm</button>
+                                <button type="reset" class="btn btn-outline-info">Cansel</button>
                                 <button type="reset" class="btn btn-outline-secondary"
-                                        onclick="location.href='{{ route('country.index') }}';">Вернуться
+                                        onclick="location.href='{{ route('country.index') }}';">Back
                                 </button>
                             </div>
                         </form>

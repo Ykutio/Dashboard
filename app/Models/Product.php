@@ -9,6 +9,8 @@ use Illuminate\Pagination\LengthAwarePaginator;
 
 class Product extends Model
 {
+    const PAGE_LIMIT = 10;
+
     protected $fillable = [
         'name',
         'description',
@@ -28,10 +30,10 @@ class Product extends Model
         return Product::all()->count();
     }
 
-    public static function products(): LengthAwarePaginator
+    public static function getAllProductsPaginate(): LengthAwarePaginator
     {
         return Product::orderBy('id', 'asc')
-            ->paginate(10);
+            ->paginate(self::PAGE_LIMIT);
     }
 
     public function category(): BelongsTo
@@ -47,5 +49,24 @@ class Product extends Model
     public function country(): BelongsTo
     {
         return $this->belongsTo('App\Models\Country', 'country_id');
+    }
+
+    public static function productsByFilter(array $params = []): LengthAwarePaginator
+    {
+        $query = Product::query();
+
+        if (!empty($params['status'])) {
+            $query->where('status', $params['status']);
+        }
+        if (!empty($params['cat_id'])) {
+            $query->where('cat_id', $params['cat_id']);
+        }
+        if (!empty($params['country_id'])) {
+            $query->where('country_id', $params['country_id']);
+        }
+        if (!empty($params['brand_id'])) {
+            $query->where('brand_id', $params['brand_id']);
+        }
+        return $query->paginate(self::PAGE_LIMIT);
     }
 }

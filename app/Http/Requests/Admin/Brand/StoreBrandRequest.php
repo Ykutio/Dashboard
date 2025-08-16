@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Requests\Admin;
+namespace App\Http\Requests\Admin\Brand;
 
-use App\Models\Enum\CountryStatusEnum;
+use App\Models\Enum\BrandStatusEnum;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class UpdateCountryRequest extends FormRequest
+class StoreBrandRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,8 +24,9 @@ class UpdateCountryRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required', 'max:255', 'string'],
-            'status' => ['required', 'string', Rule::in(array_keys(CountryStatusEnum::getCountryStatusMap()))],
+            'name' => ['required', 'unique:brands,name', 'max:255', 'string'],
+            'country_id' => ['required', 'integer', 'exists:countries,id'],
+            'status' => ['required', 'string', Rule::in(array_keys(BrandStatusEnum::getBrandStatusMap()))],
         ];
     }
 }

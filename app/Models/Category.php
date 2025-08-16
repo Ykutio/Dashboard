@@ -2,13 +2,16 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Pagination\LengthAwarePaginator;
 
 class Category extends Model
 {
-    protected $fillable  = ['name', 'status'];
+    const PAGE_LIMIT = 5;
+
+    protected $fillable = ['name', 'status'];
 
     use HasFactory;
 
@@ -18,9 +21,24 @@ class Category extends Model
             ->count();
     }
 
-    public static function categories(): LengthAwarePaginator
+    public static function getAllCategoriesPaginate(): LengthAwarePaginator
     {
         return Category::orderBy('id', 'asc')
-            ->paginate(5);
+            ->paginate(self::PAGE_LIMIT);
+    }
+
+    public static function categoriesByFilter(array $params = []): LengthAwarePaginator
+    {
+        $query = Category::query();
+
+        if (!empty($params['status'])) {
+            $query->where('status', $params['status']);
+        }
+        return $query->paginate(self::PAGE_LIMIT);
+    }
+
+    public static function getAllCategories(): Collection
+    {
+        return Category::orderBy('id', 'asc')->get();
     }
 }

@@ -10,8 +10,8 @@ enum CountryStatusEnum: string
     public static function getCountryStatusMap(): array
     {
         return [
-            self::ACTIVE->value => 'Активный',
-            self::INACTIVE->value => 'Не активный',
+            self::ACTIVE->value => 'Active',
+            self::INACTIVE->value => 'Not Active',
         ];
     }
 }

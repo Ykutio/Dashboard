@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Admin;
+namespace App\Http\Requests\Admin\Product;
 
 use App\Models\Enum\ProductStatusEnum;
 use Illuminate\Foundation\Http\FormRequest;

@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Админ-панель - @yield('title')</title>
+    <title>Admin panel - @yield('title')</title>
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"
           href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -41,7 +41,7 @@
                 <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
             </li>
             <li class="nav-item d-none d-sm-inline-block">
-                <a href="{{ route('dashboard') }}" class="nav-link">Вернуться на страницу сайта</a>
+                <a href="{{ route('dashboard') }}" class="nav-link">Return to the site page</a>
             </li>
         </ul>
 
@@ -92,7 +92,7 @@
         <a href="{{ route('adminpanel_home' )}}" class="brand-link">
             <img src="/admin/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
                  style="opacity: .8">
-            <span class="brand-text font-weight-light">Админ панель сайта</span>
+            <span class="brand-text font-weight-light">Dashboard</span>
         </a>
 
         <!-- Sidebar -->
@@ -103,7 +103,7 @@
                     <img src="/admin/img/user-profile.png" class="img-circle elevation-2" alt="User Image">
                 </div>
                 <div class="info">
-                    <a href="#" class="d-block">{{ Auth::user()->name }}</a>
+                    <a href="{{ route('profile.edit' )}}" class="d-block">{{ Auth::user()->name }}</a>
                 </div>
             </div>
 
@@ -127,26 +127,26 @@
                     <li class="nav-item">
                         <a href="{{ route('adminpanel_home') }}" class="nav-link">
                             <i class="far fa-circle nav-icon"></i>
-                            <p>Главная</p>
+                            <p>Main</p>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a href="{{ route('product.index') }}" class="nav-link">
                             <i class="nav-icon fas ion-bag"></i>
                             <p>
-                                Продукты
+                                Products
                                 <i class="right fas fa-angle-left"></i>
                             </p>
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
                                 <a href="{{ route('product.index') }}" class="nav-link">
-                                    <p>Все продукты</p>
+                                    <p>All products</p>
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a href="{{ route('product.create') }}" class="nav-link">
-                                    <p>Добавить продукт</p>
+                                    <p>Add product</p>
                                 </a>
                             </li>
                         </ul>
@@ -155,19 +155,19 @@
                         <a href="{{ route('brand.index') }}" class="nav-link">
                             <i class="nav-icon fas fa-user-edit"></i>
                             <p>
-                                Бренды
+                                Brands
                                 <i class="right fas fa-angle-left"></i>
                             </p>
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
                                 <a href="{{ route('brand.index') }}" class="nav-link">
-                                    <p>Все бренды</p>
+                                    <p>All brands</p>
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a href="{{ route('brand.create') }}" class="nav-link">
-                                    <p>Добавить бренд</p>
+                                    <p>Add brand</p>
                                 </a>
                             </li>
                         </ul>
@@ -176,19 +176,19 @@
                         <a href="{{ route('category.index') }}" class="nav-link">
                             <i class="nav-icon fas fa-regular fa-layer-group"></i>
                             <p>
-                                Категории
+                                Categories
                                 <i class="right fas fa-angle-left"></i>
                             </p>
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
                                 <a href="{{ route('category.index') }}" class="nav-link">
-                                    <p>Все категории</p>
+                                    <p>All categories</p>
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a href="{{ route('category.create') }}" class="nav-link">
-                                    <p>Добавить категорию</p>
+                                    <p>Add category</p>
                                 </a>
                             </li>
                         </ul>
@@ -197,19 +197,19 @@
                         <a href="{{ route('country.index') }}" class="nav-link">
                             <i class="nav-icon fas fa-globe"></i>
                             <p>
-                                Страны
+                                Countries
                                 <i class="right fas fa-angle-left"></i>
                             </p>
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
                                 <a href="{{ route('country.index') }}" class="nav-link">
-                                    <p>Все страны</p>
+                                    <p>All countries</p>
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a href="{{ route('country.create') }}" class="nav-link">
-                                    <p>Добавить страну</p>
+                                    <p>Add country</p>
                                 </a>
                             </li>
                         </ul>

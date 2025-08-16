@@ -16,7 +16,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0" style="text-align:right;">Редактировать категорию: {{ $category['name'] }}</h1>
+                    <h1 class="m-0" style="text-align:right;">Edit category: {{ $category['name'] }}</h1>
                 </div>
             </div>
             @if ($errors->any())
@@ -48,11 +48,11 @@
                             @method('PUT')
                             <div class="card-body">
                                 <div class="form-group">
-                                    <label for="name">Категория</label>
+                                    <label for="name">Category</label>
                                     <input type="text" class="form-control" id="name" name="name"
-                                           value="{{ $category['name'] }}" placeholder="Введите название категории"
+                                           value="{{ $category['name'] }}" placeholder="Enter category name"
                                            required>
-                                    <label for="status">Статус</label>
+                                    <label for="status">Status</label>
                                     <select name="status" class="form-control">
                                         @foreach( CategoryStatusEnum::getCategoryStatusMap() as $key => $value)
                                             @php
@@ -69,10 +69,10 @@
                                 </div>
                             </div>
                             <div class="card-footer">
-                                <button type="submit" class="btn btn-primary">Подтвердить</button>
-                                <button type="reset" class="btn btn-outline-info">Отменить</button>
+                                <button type="submit" class="btn btn-primary">Confirm</button>
+                                <button type="reset" class="btn btn-outline-info">Cansel</button>
                                 <button type="reset" class="btn btn-outline-secondary"
-                                        onclick="location.href='{{ route('category.index') }}';">Вернуться
+                                        onclick="location.href='{{ route('category.index') }}';">Back
                                 </button>
                             </div>
                         </form>

@@ -10,8 +10,8 @@ enum CategoryStatusEnum: string
     public static function getCategoryStatusMap(): array
     {
         return [
-            self::ACTIVE->value => 'Активный',
-            self::INACTIVE->value => 'Не активный',
+            self::ACTIVE->value => 'Active',
+            self::INACTIVE->value => 'Not Active',
         ];
     }
 }

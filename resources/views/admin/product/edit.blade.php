@@ -4,7 +4,7 @@
 
 @extends('layouts.admin_layout')
 
-@section('title', 'Редактировать продукт')
+@section('title', 'Edit продукт')
 
 @section('content')
 
@@ -13,7 +13,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0" style="text-align:right;">Редактировать продукт: {{ $product['name'] }}</h1>
+                    <h1 class="m-0" style="text-align:right;">Edit product: {{ $product['name'] }}</h1>
                 </div>
             </div>
             @if ($errors->any())
@@ -45,46 +45,51 @@
                             @method('PUT')
                             <div class="card-body">
                                 <div class="form-group">
-                                    <label for="name">Название продукта</label>
+                                    <label for="name">Product name</label>
                                     <input type="text" value="{{ $product['name'] }}" class="form-control" id="name"
-                                           name="name" placeholder="Введите название продукта" required>
+                                           name="name" placeholder="Enter product name" required>
                                 </div>
                                 <div class="form-group">
-                                    <label for="description">Описание продукта</label>
+                                    <label for="description">Product description</label>
                                     <input type="text" value="{{ $product['description'] }}" class="form-control"
-                                           id="description" name="description" placeholder="Опишите продукт">
+                                           id="description" name="description" placeholder="Enter product description">
                                 </div>
                                 <div class="form-group">
-                                    <label for="price">Цена продукта</label>
+                                    <label for="price">Product price</label>
                                     <input type="text" value="{{ $product['price'] }}" class="form-control" id="price"
-                                           name="price" placeholder="Цена продукта">
+                                           name="price" placeholder="Enter product price">
                                 </div>
-                                <label for="brand_id">Бренд продукта</label>
-                                <select name="brand_id" class="form-control" required>
-                                    <option value="" selected>Выберите категорию продукта</option>
-                                    @foreach( $brands as $item)
-                                        <option value="{{ $item['id'] }}"
-                                                @if($item['id'] == $product['brand_id']) selected @endif >{{ $item['name'] }}</option>
-                                    @endforeach
-                                </select>
-                                <label for="cat_id">Категория продукта</label>
+                                <div class="form-group">
+                                    <label for="quantity">Product quantity</label>
+                                    <input type="text" value="{{ $product['price'] }}" class="form-control" id="price"
+                                           name="quantity" placeholder="Enter product quantity">
+                                </div>
+                                <label for="cat_id">Product category</label>
                                 <select name="cat_id" class="form-control" required>
-                                    <option value="" selected>Выберите категорию продукта</option>
+                                    <option value="" selected>Select product category</option>
                                     @foreach( $categories as $item)
                                         <option value="{{ $item['id'] }}"
                                                 @if($item['id'] == $product['cat_id']) selected @endif >{{ $item['name'] }}</option>
                                     @endforeach
                                 </select>
-                                <label for="country_id">Страна продукта</label>
+                                <label for="brand_id">Product brand</label>
+                                <select name="brand_id" class="form-control" required>
+                                    <option value="" selected>Enter product quantity</option>
+                                    @foreach( $brands as $item)
+                                        <option value="{{ $item['id'] }}"
+                                                @if($item['id'] == $product['brand_id']) selected @endif >{{ $item['name'] }}</option>
+                                    @endforeach
+                                </select>
+                                <label for="country_id">Product country</label>
                                 <select name="country_id" class="form-control" required>
-                                    <option value="" selected>Выберите категорию продукта</option>
+                                    <option value="" selected>Select product country</option>
                                     @foreach( $countries as $item)
                                         <option value="{{ $item['id'] }}"
                                                 @if($item['id'] == $product['country_id']) selected @endif >{{ $item['name'] }}</option>
                                     @endforeach
                                 </select>
                                 <div class="form-group">
-                                    <label for="status">Статус продукта</label>
+                                    <label for="status">Product status</label>
                                     <select name="status" class="form-control">
                                         @foreach( ProductStatusEnum::getProductStatusMap() as $key => $value)
                                             @php
@@ -100,24 +105,19 @@
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <label for="quantity">Количество продукта</label>
-                                    <input type="text" value="{{ $product['quantity'] }}" class="form-control" id="quantity"
-                                           name="quantity" placeholder="Количество продукта">
-                                </div>
-                                <div class="form-group">
-                                    <label for="img">Изображение продукта</label>
+                                    <label for="img">Product image</label>
                                     <img src="/{{ $product['img'] }}" class="imgUploaded m-md-4"
                                          style="display: block; width: 200px; height: 200px">
                                     <input type="text" value="{{ $product['img'] }}" name="img" id="img"
                                            class="form-control" name="img" value="" readonly>
-                                    <a href="" class="popup_selector" data-inputid="img">Выберите изображение</a>
+                                    <a href="" class="popup_selector" data-inputid="img">Select product image</a>
                                 </div>
                             </div>
                             <div class="card-footer">
-                                <button type="submit" class="btn btn-primary">Подтвердить</button>
-                                <button type="reset" class="btn btn-outline-info">Отменить</button>
+                                <button type="submit" class="btn btn-primary">Confirm</button>
+                                <button type="reset" class="btn btn-outline-info">Cansel</button>
                                 <button type="reset" class="btn btn-outline-secondary"
-                                        onclick="location.href='{{ route('product.index') }}';">Вернуться
+                                        onclick="location.href='{{ route('product.index') }}';">Back
                                 </button>
                             </div>
                         </form>

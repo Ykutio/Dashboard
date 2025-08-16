@@ -1,6 +1,12 @@
+@php
+    use \App\Models\Enum\BrandStatusEnum;
+
+$currentPage = $brands->currentPage();
+$perPage = $brands->perPage();
+@endphp
 @extends('layouts.admin_layout')
 
-@section('title', 'Все бренды')
+@section('title', 'All brands')
 
 @section('content')
 
@@ -9,9 +15,41 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0" style="text-align:right;">Все бренды</h1>
+                    <h1 class="m-0" style="text-align:right;">All brands</h1>
                 </div>
             </div>
+            <form action="{{ route('brand.index') }}" method="GET">
+                <div class="row mb-2">
+                    <select name="country_id" class="form-control-sm" style="margin-right: 10px; margin-left: 7px">
+                        <option value="">All countries</option>
+                        @foreach( $countries as $value)
+                            @php
+                                $selected = '';
+                                if(
+                                    isset($filters['country_id'])
+                                    && (int)$filters['country_id'] === $value['id']
+                                    ){
+                                    $selected = 'selected';
+                                }
+                            @endphp
+                            <option {{ $selected }} value="{{ $value['id'] }}">{{ $value['name'] }}</option>
+                        @endforeach
+                    </select>
+                    <select name="status" class="form-control-sm" style="margin-right: 10px; margin-left: 7px">
+                        <option value="">All statuses</option>
+                        @foreach( BrandStatusEnum::getBrandStatusMap() as $key => $value)
+                            @php
+                                $selected = '';
+                                if(isset($filters['status']) && $filters['status'] === $key){
+                                    $selected = 'selected';
+                                }
+                            @endphp
+                            <option {{ $selected }} value="{{ $key }}">{{ $value }}</option>
+                        @endforeach
+                    </select>
+                    <button type="submit" class="btn btn-primary btn-sm">Apply filter</button>
+                </div>
+            </form>
             @if(session('success'))
                 <div class="alert alert-default-warning" role="alert">
                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">x</button>
@@ -39,26 +77,29 @@
                                 №
                             </th>
                             <th style="width: 10%" class="text-center">
-                                Название
+                                Name
                             </th>
                             <th style="width: 10%" class="text-center">
-                                Страна производитель
+                                Country
                             </th>
                             <th style="width: 10%" class="text-center">
-                                Статус
+                                Status
                             </th>
                             <th style="width: 10%" class="text-center">
-                                Дата создания
+                                Created
                             </th>
                             <th style="width: 20%">
                             </th>
                         </tr>
                         </thead>
                         <tbody>
+                        @php
+                            $i = $currentPage === 1 ? 0 : ($currentPage - 1) * $perPage;
+                        @endphp
                         @foreach( $brands as $key => $brand )
                             <tr>
                                 <td>
-                                    {{ ++$key }}
+                                    {{ ++$i }}
                                 </td>
                                 <td>
                                     {{ $brand['name'] }}
@@ -68,10 +109,10 @@
                                 </td>
                                 <td class="project-state">
                                     @if($brand['status'] == 'active')
-                                        <span class="badge badge-success">Активный</span>
+                                        <span class="badge badge-success">Active</span>
                                     @endif
                                     @if( $brand['status'] == 'inactive' )
-                                        <span class="badge badge-danger">Не Активный</span>
+                                        <span class="badge badge-danger">Not Active</span>
                                     @endif
                                 </td>
                                 <td>
@@ -83,21 +124,18 @@
                                             <div class="col-12 col-sm-6 col-md-8" style="">
                                                 <a class="btn btn-info btn-sm"
                                                    href="{{ route('brand.edit', $brand['id']) }}">
-                                                    <i class="fas fa-pencil-alt">
-                                                    </i>
-                                                    Редактировать
+                                                    <i class="fas fa-pencil-alt"></i>
+                                                    Edit
                                                 </a>
                                             </div>
-
                                             <div class="col-6 col-md-4" style="">
                                                 <form action="{{ route('brand.destroy', $brand['id']) }}"
                                                       method="POST">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="btn btn-danger btn-sm delete-btn">
-                                                        <i class="fas fa-trash">
-                                                        </i>
-                                                        Удалить
+                                                        <i class="fas fa-trash"></i>
+                                                        Delete
                                                     </button>
                                                 </form>
                                             </div>
@@ -112,5 +150,5 @@
             </div>
         </div>
     </section>
-    {{ $brands->links() }}
+    {{ $brands->withQueryString()->links() }}
 @endsection
