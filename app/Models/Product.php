@@ -67,6 +67,12 @@ class Product extends Model
         if (!empty($params['brand_id'])) {
             $query->where('brand_id', $params['brand_id']);
         }
+        if (!empty($params['search'])) {
+            $query->where(function ($query) use ($params): void {
+                $query->where('name', 'LIKE', '%' . $params['search'] . '%')
+                    ->orWhere('description', 'LIKE', '%' . $params['search'] . '%');
+            });
+        }
         return $query->paginate(self::PAGE_LIMIT);
     }
 }
