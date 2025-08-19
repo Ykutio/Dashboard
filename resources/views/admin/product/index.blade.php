@@ -35,7 +35,7 @@ $perPage = $products->perPage();
                             <option {{ $selected }} value="{{ $value['id'] }}">{{ $value['name'] }}</option>
                         @endforeach
                     </select>
-                    <select name="cat_id" class="form-control-sm" style="margin-right: 10px; margin-left: 7px">
+                    <select name="cat_id" class="form-control-sm" style="margin-right: 10px">
                         <option value="">All categories</option>
                         @foreach( $categories as $value)
                             @php
@@ -50,7 +50,7 @@ $perPage = $products->perPage();
                             <option {{ $selected }} value="{{ $value['id'] }}">{{ $value['name'] }}</option>
                         @endforeach
                     </select>
-                    <select name="country_id" class="form-control-sm" style="margin-right: 10px; margin-left: 7px">
+                    <select name="country_id" class="form-control-sm" style="margin-right: 10px">
                         <option value="">All countries</option>
                         @foreach( $countries as $value)
                             @php
@@ -65,7 +65,7 @@ $perPage = $products->perPage();
                             <option {{ $selected }} value="{{ $value['id'] }}">{{ $value['name'] }}</option>
                         @endforeach
                     </select>
-                    <select name="status" class="form-control-sm" style="margin-right: 10px; margin-left: 7px">
+                    <select name="status" class="form-control-sm" style="margin-right: 10px">
                         <option value="">All statuses</option>
                         @foreach( ProductStatusEnum::getProductStatusMap() as $key => $value)
                             @php
@@ -77,8 +77,13 @@ $perPage = $products->perPage();
                             <option {{ $selected }} value="{{ $key }}">{{ $value }}</option>
                         @endforeach
                     </select>
+                    <!-- Search Form -->
+                    <div class="form-inline" style="margin-right: 20px">
+                            <input class="form-control form-control-sidebar" type="search" name="search" placeholder="Search Product"
+                                   aria-label="Search">
+                    </div>
                     <button type="submit" class="btn btn-primary btn-sm">Apply filter</button>
-                    <button type="reset" class="btn btn-outline-secondary btn-sm" style="margin-left: 8px"
+                    <button type="reset" class="btn btn-outline-secondary btn-sm" style="margin-left: 6px"
                             onclick="location.href='{{ route('product.index') }}';">Reset
                     </button>
                 </div>
@@ -181,20 +186,17 @@ $perPage = $products->perPage();
                                             <div class="col-12 col-sm-6 col-md-8" style="">
                                                 <a class="btn btn-info btn-sm"
                                                    href="{{ route('product.edit', $product['id']) }}">
-                                                    <i class="fas fa-pencil-alt">
-                                                    </i>
+                                                    <i class="fas fa-pencil-alt"></i>
                                                     Edit
                                                 </a>
                                             </div>
-
                                             <div class="col-6 col-md-4" style="">
                                                 <form action="{{ route('product.destroy', $product['id']) }}"
                                                       method="POST">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="btn btn-danger btn-sm delete-btn">
-                                                        <i class="fas fa-trash">
-                                                        </i>
+                                                        <i class="fas fa-trash"></i>
                                                         Delete
                                                     </button>
                                                 </form>
