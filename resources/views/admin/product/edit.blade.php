@@ -40,7 +40,8 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="card card-primary">
-                        <form action="{{ route('product.update', $product['id']) }}" method="POST">
+                        <form action="{{ route('product.update', $product['id']) }}" enctype="multipart/form-data"
+                              method="POST">
                             @csrf
                             @method('PUT')
                             <div class="card-body">
@@ -106,11 +107,19 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="img">Product image</label>
-                                    <img src="/{{ $product['img'] }}" class="imgUploaded m-md-4"
-                                         style="display: block; width: 200px; height: 200px">
-                                    <input type="text" value="{{ $product['img'] }}" name="img" id="img"
-                                           class="form-control" name="img" value="" readonly>
-                                    <a href="" class="popup_selector" data-inputid="img">Select product image</a>
+                                    @if(!empty($product['img']))
+                                        @php
+                                        $imagePath = str_starts_with($product['img'], 'https://')
+                                        ? $product['img']
+                                        : asset('/storage/' . $product['img']);
+                                        @endphp
+                                        <img src="{{ $imagePath }}" class="imgUploaded m-md-4"
+                                             style="display: block; width: 200px; height: 200px">
+                                    @endif
+                                    <div class="form-group">
+                                        <input type="file" value="{{ $product['img'] }}" name="img" class="form-control"
+                                               readonly>
+                                    </div>
                                 </div>
                             </div>
                             <div class="card-footer">
