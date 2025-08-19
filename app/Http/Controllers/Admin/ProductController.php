@@ -87,7 +87,13 @@ class ProductController extends Controller
      */
     public function update(UpdateProductRequest $request, Product $product): RedirectResponse
     {
+
         $validated = $request->validated(); // The validated data is automatically available
+
+        if ($request->hasFile('img')) {
+            $path = $request->file('img')->store('uploads', 'public');
+            $validated['img'] = $path;
+        }
         $product->update($validated);
 
         return redirect()
