@@ -17,7 +17,7 @@ class Product extends Model
         'img',
         'price',
         'brand_id',
-        'cat_id',
+        'category_id',
         'country_id',
         'quantity',
         'status'
@@ -38,17 +38,17 @@ class Product extends Model
 
     public function category(): BelongsTo
     {
-        return $this->belongsTo('App\Models\Category', 'cat_id');
+        return $this->belongsTo(Category::class);
     }
 
     public function brand(): BelongsTo
     {
-        return $this->belongsTo('App\Models\Brand', 'brand_id');
+        return $this->belongsTo(Brand::class);
     }
 
     public function country(): BelongsTo
     {
-        return $this->belongsTo('App\Models\Country', 'country_id');
+        return $this->belongsTo(Country::class);
     }
 
     public static function productsByFilter(array $params = []): LengthAwarePaginator
@@ -58,8 +58,8 @@ class Product extends Model
         if (!empty($params['status'])) {
             $query->where('status', $params['status']);
         }
-        if (!empty($params['cat_id'])) {
-            $query->where('cat_id', $params['cat_id']);
+        if (!empty($params['category_id'])) {
+            $query->where('category_id', $params['category_id']);
         }
         if (!empty($params['country_id'])) {
             $query->where('country_id', $params['country_id']);

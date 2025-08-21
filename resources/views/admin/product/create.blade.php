@@ -64,8 +64,8 @@
                                            placeholder="Enter product quantity">
                                 </div>
                                 <div class="form-group">
-                                    <label for="cat_id">Product category</label>
-                                    <select name="cat_id" class="form-control" required>
+                                    <label for="category_id">Product category</label>
+                                    <select name="category_id" class="form-control" required>
                                         <option value="" selected>Select product category</option>
                                         @foreach( $categories as $item)
                                             <option value="{{ $item['id'] }}">{{ $item['name'] }}</option>

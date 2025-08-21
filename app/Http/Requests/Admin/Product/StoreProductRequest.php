@@ -29,7 +29,7 @@ class StoreProductRequest extends FormRequest
             'img' => ['nullable', 'image', 'mimes:jpg,jpeg,png', 'max:2048'],
             'price' => ['required', 'integer'],
             'brand_id' => ['nullable', 'integer', 'exists:brands,id'],
-            'cat_id' => ['nullable', 'integer', 'exists:categories,id'],
+            'category_id' => ['nullable', 'integer', 'exists:categories,id'],
             'country_id' => ['nullable', 'integer', 'exists:countries,id'],
             'quantity' => ['nullable', 'integer'],
             'status' => ['required', 'string', Rule::in(array_keys(ProductStatusEnum::getProductStatusMap()))],

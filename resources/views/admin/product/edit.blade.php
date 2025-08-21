@@ -65,12 +65,12 @@
                                     <input type="text" value="{{ $product['price'] }}" class="form-control" id="price"
                                            name="quantity" placeholder="Enter product quantity">
                                 </div>
-                                <label for="cat_id">Product category</label>
-                                <select name="cat_id" class="form-control" required>
+                                <label for="category_id">Product category</label>
+                                <select name="category_id" class="form-control" required>
                                     <option value="" selected>Select product category</option>
                                     @foreach( $categories as $item)
                                         <option value="{{ $item['id'] }}"
-                                                @if($item['id'] == $product['cat_id']) selected @endif >{{ $item['name'] }}</option>
+                                                @if($item['id'] == $product['category_id']) selected @endif >{{ $item['name'] }}</option>
                                     @endforeach
                                 </select>
                                 <label for="brand_id">Product brand</label>

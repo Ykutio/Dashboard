@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('img')->nullable()->default(NULL);
             $table->integer('price')->unsigned()->default(NULL);
             $table->integer('brand_id')->unsigned()->nullable()->default(NULL);
-            $table->integer('cat_id')->unsigned()->nullable()->default(NULL);
+            $table->integer('category_id')->unsigned()->nullable()->default(NULL);
             $table->integer('country_id')->unsigned()->nullable()->default(NULL);
             $table->integer('quantity')->unsigned()->nullable()->default(NULL);
             $table->string('status', 20);

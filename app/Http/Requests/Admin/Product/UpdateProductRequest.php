@@ -29,7 +29,7 @@ class UpdateProductRequest extends FormRequest
             'img' => ['sometimes', 'nullable', 'file', 'mimes:jpg,png,pdf', 'max:2048'],
             'price' => ['required', 'integer'],
             'brand_id' => ['nullable', 'integer'],
-            'cat_id' => ['nullable', 'integer'],
+            'category_id' => ['nullable', 'integer'],
             'country_id' => ['nullable', 'integer'],
             'quantity' => ['nullable', 'integer'],
             'status' => ['required', 'string', Rule::in(array_keys(ProductStatusEnum::getProductStatusMap()))],

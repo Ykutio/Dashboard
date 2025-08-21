@@ -20,6 +20,7 @@ class BrandController extends Controller
     {
         $validatedData = $request->validated();
         $brands = Brand::brandsByFilter($validatedData);
+        $brands->load('country'); // To resolve "N+1 query" problem
         $countries = Country::getAllCountries();
 
         return view('admin.brand.index', [

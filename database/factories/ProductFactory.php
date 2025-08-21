@@ -36,7 +36,7 @@ class ProductFactory extends Factory
             'img' => $randomImages[rand(0, 10)],
             'price' => fake()->numberBetween(10, 1000),
             'brand_id' => fake()->numberBetween(1, 8),
-            'cat_id' => fake()->numberBetween(1, 5),
+            'category_id' => fake()->numberBetween(1, 5),
             'country_id' => fake()->numberBetween(1, 3),
             'quantity' => fake()->numberBetween(0, 100),
             'status' => fake()->randomElement(['active', 'inactive']),

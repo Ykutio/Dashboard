@@ -1,5 +1,9 @@
 <?php
 
+use App\Http\Controllers\Admin\BrandController;
+use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\CountryController;
+use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -19,10 +23,10 @@ Route::get('/', function () {return view('welcome');});
 Route::middleware(['role:admin'])->prefix('admin_panel')->group(function (){
     Route::get('/', [App\Http\Controllers\Admin\HomeController::class, 'index'])
         ->name('adminpanel_home');
-    Route::resource('category', \App\Http\Controllers\Admin\CategoryController::class);
-    Route::resource('brand', \App\Http\Controllers\Admin\BrandController::class);
-    Route::resource('product', \App\Http\Controllers\Admin\ProductController::class);
-    Route::resource('country', \App\Http\Controllers\Admin\CountryController::class);
+    Route::resource('category', CategoryController::class);
+    Route::resource('brand', BrandController::class);
+    Route::resource('product', ProductController::class);
+    Route::resource('country', CountryController::class);
 });
 
 Route::get('/dashboard', function () {return view('dashboard');

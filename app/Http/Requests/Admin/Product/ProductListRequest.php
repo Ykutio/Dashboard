@@ -24,10 +24,10 @@ class ProductListRequest extends FormRequest
     {
         return [
             'brand_id' => ['sometimes', 'nullable', 'integer', 'exists:brands,id'],
-            'cat_id' => ['sometimes', 'nullable', 'integer', 'exists:categories,id'],
+            'category_id' => ['sometimes', 'nullable', 'integer', 'exists:categories,id'],
             'country_id' => ['sometimes', 'nullable', 'integer', 'exists:countries,id'],
             'status' => ['sometimes', 'nullable', 'string', Rule::in(array_keys(ProductStatusEnum::getProductStatusMap()))],
-            'search' => ['sometimes', 'nullable', 'string', 'min:6', 'max:20']
+            'search' => ['sometimes', 'nullable', 'string', 'min:3', 'max:20']
         ];
     }
 }

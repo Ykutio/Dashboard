@@ -32,7 +32,7 @@ class Brand extends Model
 
     public function country(): BelongsTo
     {
-        return $this->belongsTo('App\Models\Country', 'country_id');
+        return $this->belongsTo(Country::class);
     }
 
     public static function brandsByFilter(array $params = []): LengthAwarePaginator

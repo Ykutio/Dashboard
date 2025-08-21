@@ -23,6 +23,7 @@ class ProductController extends Controller
         $validatedData = $request->validated();
 
         $products = Product::productsByFilter($validatedData);
+        $products->load('brand', 'category', 'country'); // To resolve "N+1 query" problem
         $brands = Brand::getAllBrands();
         $countries = Country::getAllCountries();
         $categories = Category::getAllCategories();
@@ -87,7 +88,6 @@ class ProductController extends Controller
      */
     public function update(UpdateProductRequest $request, Product $product): RedirectResponse
     {
-
         $validated = $request->validated(); // The validated data is automatically available
 
         if ($request->hasFile('img')) {

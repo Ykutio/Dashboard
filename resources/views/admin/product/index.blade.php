@@ -35,14 +35,14 @@ $perPage = $products->perPage();
                             <option {{ $selected }} value="{{ $value['id'] }}">{{ $value['name'] }}</option>
                         @endforeach
                     </select>
-                    <select name="cat_id" class="form-control-sm" style="margin-right: 10px">
+                    <select name="category_id" class="form-control-sm" style="margin-right: 10px">
                         <option value="">All categories</option>
                         @foreach( $categories as $value)
                             @php
                                 $selected = '';
                                 if(
-                                    isset($filters['cat_id'])
-                                    && (int)$filters['cat_id'] === $value['id']
+                                    isset($filters['category_id'])
+                                    && (int)$filters['category_id'] === $value['id']
                                     ){
                                     $selected = 'selected';
                                 }
@@ -77,9 +77,9 @@ $perPage = $products->perPage();
                             <option {{ $selected }} value="{{ $key }}">{{ $value }}</option>
                         @endforeach
                     </select>
-                    <!-- Search Form -->
+                    <!-- Search -->
                     <div class="form-inline" style="margin-right: 20px">
-                            <input class="form-control form-control-sidebar" type="search" name="search" placeholder="Search Product"
+                            <input class="form-control form-control-sidebar" type="search" name="search" value="@php echo !empty($filters['search']) ? $filters['search'] : ''; @endphp" placeholder="Search Product"
                                    aria-label="Search">
                     </div>
                     <button type="submit" class="btn btn-primary btn-sm">Apply filter</button>
