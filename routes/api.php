@@ -2,6 +2,8 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\BrandController;
+use App\Http\Controllers\Api\ProductController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,3 +19,22 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::prefix('brands')
+    ->as('brand.')
+    ->group(static function (): void {
+        Route::get('/list', [BrandController::class, 'index'])
+            ->name('index');
+        Route::get('{id}/show', [BrandController::class, 'show'])
+            ->where('id', '\d+')
+            ->name('show');
+    });
+Route::prefix('products')
+    ->as('product.')
+    ->group(static function (): void {
+        Route::get('/list', [ProductController::class, 'index'])
+            ->name('index');
+        Route::get('{id}/show', [ProductController::class, 'show'])
+            ->where('id', '\d+')
+            ->name('show');
+    });
