@@ -3,6 +3,9 @@
 namespace App\Http\Resources\Product;
 
 use App\Constants\DataFormat;
+use App\Http\Resources\Brand\BrandListResource;
+use App\Http\Resources\Category\CategoryListResource;
+use App\Http\Resources\Country\CountryListResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -21,10 +24,9 @@ class ProductResource extends JsonResource
             'description' => $this->description,
             'img' => $this->img,
             'price' => $this->price,
-            'price' => $this->price,
-            'brand' => ProductListResource::make($this->brand),
-            'category' => ProductListResource::make($this->category),
-            'country' => ProductListResource::make($this->country),
+            'brand' => BrandListResource::make($this->brand),
+            'category' => CategoryListResource::make($this->category),
+            'country' => CountryListResource::make($this->country),
             'quantity' => $this->quantity,
             'status' => $this->status,
             'created_at' => $this->created_at->format(DataFormat::DATA_FORMAT),

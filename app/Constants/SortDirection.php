@@ -4,6 +4,14 @@ namespace App\Constants;
 
 class SortDirection
 {
-    const DESC = 'DESC';
-    const ASC = 'ASC';
+    const DESC = 'desc';
+    const ASC = 'asc';
+
+    public static function getSortOrderMap(): array
+    {
+        return [
+            self::DESC => 'desc',
+            self::ASC => 'asc'
+        ];
+    }
 }

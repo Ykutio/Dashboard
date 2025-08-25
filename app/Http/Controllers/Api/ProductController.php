@@ -5,9 +5,9 @@ namespace App\Http\Controllers\Api;
 use App\Constants\SortDirection;
 use App\Constants\StatusResponse;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Api\Product\ProductListRequest;
 use App\Http\Resources\Product\ProductResource;
 use App\Models\Product\Product;
-use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 class ProductController extends Controller
@@ -15,15 +15,16 @@ class ProductController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request): JsonResponse
+    public function index(ProductListRequest $request): JsonResponse
     {
         $perPage = $request->input('per_page', Product::PER_PAGE);
         $offset = $request->input('offset', 0);
         $sortField = $request->input('sort_field', 'id');
         $sortDirection = $request->input('sort_direction', SortDirection::ASC);
-        $productCount = Product::productCount();
 
-        $data = Product::getProductsList($perPage, $offset);
+        $productCount = Product::productCount(true);
+
+        $data = Product::getProductsList($perPage, $offset, $sortField, $sortDirection);
 
         return response()->json([
             'status' => StatusResponse::SUCCESS,

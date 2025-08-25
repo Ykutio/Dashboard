@@ -32,8 +32,14 @@ class Product extends Model
 
     use HasFactory;
 
-    public static function productCount(): int
+    public static function productCount(bool $isActive = false): int
     {
+        $query = Product::query();
+        if($isActive){
+            return $query
+                ->where('status', '=',ProductStatusEnum::ACTIVE)
+                ->count();
+        }
         return Product::all()->count();
     }
 

@@ -8,4 +8,14 @@ class ProductSortOrderEnum
     const NAME = 'name';
     const PRICE = 'price';
     const QUANTITY = 'quantity';
+
+    public static function getSortOrderMap(): array
+    {
+        return [
+            self::ID,
+            self::NAME,
+            self::PRICE,
+            self::QUANTITY
+        ];
+    }
 }

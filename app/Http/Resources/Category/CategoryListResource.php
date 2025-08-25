@@ -1,13 +1,11 @@
 <?php
 
-namespace App\Http\Resources\Brand;
+namespace App\Http\Resources\Category;
 
 use App\Constants\DataFormat;
-use App\Http\Resources\Country\CountryListResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
-
-class BrandListResource extends JsonResource
+class CategoryListResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -19,7 +17,6 @@ class BrandListResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'country' => CountryListResource::make($this->country),
             'status' => $this->status,
             'created_at' => $this->created_at->format(DataFormat::DATA_FORMAT),
         ];
