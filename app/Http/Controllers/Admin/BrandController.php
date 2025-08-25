@@ -6,8 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Brand\BrandListRequest;
 use App\Http\Requests\Admin\Brand\StoreBrandRequest;
 use App\Http\Requests\Admin\Brand\UpdateBrandRequest;
-use App\Models\Brand;
-use App\Models\Country;
+use App\Models\Brand\Brand;
+use App\Models\Country\Country;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 

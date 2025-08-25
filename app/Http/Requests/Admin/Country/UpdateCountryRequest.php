@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests\Admin\Country;
 
-use App\Models\Enum\CountryStatusEnum;
+use App\Models\Country\Enum\CountryStatusEnum;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 

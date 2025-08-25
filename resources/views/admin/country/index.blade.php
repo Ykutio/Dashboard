@@ -1,5 +1,5 @@
 @php
-    use \App\Models\Enum\CountryStatusEnum;
+    use App\Models\Country\Enum\CountryStatusEnum;
 @endphp
 @extends('layouts.admin_layout')
 
@@ -21,10 +21,10 @@
                         <option value="">All statuses</option>
                         @foreach( CountryStatusEnum::getCountryStatusMap() as $key => $value)
                             @php
-                            $selected = '';
-                            if(isset($filters['status']) && $filters['status'] === $key){
-                                $selected = 'selected';
-                            }
+                                $selected = '';
+                                if(isset($filters['status']) && $filters['status'] === $key){
+                                    $selected = 'selected';
+                                }
                             @endphp
                             <option {{ $selected }} value="{{ $key }}">{{ $value }}</option>
                         @endforeach

@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests\Admin\Category;
 
-use App\Models\Enum\CategoryStatusEnum;
+use App\Models\Category\Enum\CategoryStatusEnum;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 

@@ -6,10 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Product\ProductListRequest;
 use App\Http\Requests\Admin\Product\StoreProductRequest;
 use App\Http\Requests\Admin\Product\UpdateProductRequest;
-use App\Models\Brand;
-use App\Models\Category;
-use App\Models\Country;
-use App\Models\Product;
+use App\Models\Brand\Brand;
+use App\Models\Category\Category;
+use App\Models\Country\Country;
+use App\Models\Product\Product;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 
@@ -59,6 +59,12 @@ class ProductController extends Controller
     public function store(StoreProductRequest $request): RedirectResponse
     {
         $validatedData = $request->validated(); // The validated data is automatically available
+
+        if ($request->hasFile('img')) {
+            $path = $request->file('img')->store('uploads', 'public');
+            $validatedData['img'] = $path;
+        }
+
         Product::create($validatedData);
 
         return redirect()

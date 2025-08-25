@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Category;
 
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Pagination\LengthAwarePaginator;
 
-class Country extends Model
+class Category extends Model
 {
     const PAGE_LIMIT = 5;
 
@@ -15,21 +15,21 @@ class Country extends Model
 
     use HasFactory;
 
-    public static function countryCount(): int
+    public static function categoryCount(): int
     {
-        return Country::all()
+        return Category::all()
             ->count();
     }
 
-    public static function getAllCountriesPaginate(): LengthAwarePaginator
+    public static function getAllCategoriesPaginate(): LengthAwarePaginator
     {
-        return Country::orderBy('id', 'asc')
+        return Category::orderBy('id', 'asc')
             ->paginate(self::PAGE_LIMIT);
     }
 
-    public static function countriesByFilter(array $params = []): LengthAwarePaginator
+    public static function categoriesByFilter(array $params = []): LengthAwarePaginator
     {
-        $query = Country::query();
+        $query = Category::query();
 
         if (!empty($params['status'])) {
             $query->where('status', $params['status']);
@@ -37,8 +37,8 @@ class Country extends Model
         return $query->paginate(self::PAGE_LIMIT);
     }
 
-    public static function getAllCountries(): Collection
+    public static function getAllCategories(): Collection
     {
-        return Country::orderBy('id', 'asc')->get();
+        return Category::orderBy('id', 'asc')->get();
     }
 }

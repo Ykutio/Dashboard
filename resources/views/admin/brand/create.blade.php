@@ -1,5 +1,5 @@
 @php
-    use \App\Models\Enum\BrandStatusEnum;
+    use App\Models\Brand\Enum\BrandStatusEnum;
 @endphp
 
 @extends('layouts.admin_layout')

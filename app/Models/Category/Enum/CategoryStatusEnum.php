@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Models\Enum;
+namespace App\Models\Category\Enum;
 
-enum BrandStatusEnum: string
+enum CategoryStatusEnum: string
 {
     case ACTIVE = 'active';
     case INACTIVE = 'inactive';
 
-    public static function getBrandStatusMap(): array
+    public static function getCategoryStatusMap(): array
     {
         return [
             self::ACTIVE->value => 'Active',

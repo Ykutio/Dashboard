@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Models\Enum;
+namespace App\Models\Country\Enum;
 
-enum CategoryStatusEnum: string
+enum CountryStatusEnum: string
 {
     case ACTIVE = 'active';
     case INACTIVE = 'inactive';
 
-    public static function getCategoryStatusMap(): array
+    public static function getCountryStatusMap(): array
     {
         return [
             self::ACTIVE->value => 'Active',

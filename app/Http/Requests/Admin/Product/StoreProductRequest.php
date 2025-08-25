@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests\Admin\Product;
 
-use App\Models\Enum\ProductStatusEnum;
+use App\Models\Product\Enum\ProductStatusEnum;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 

@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Country\CountryListRequest;
 use App\Http\Requests\Admin\Country\StoreCountryRequest;
 use App\Http\Requests\Admin\Country\UpdateCountryRequest;
-use App\Models\Country;
+use App\Models\Country\Country;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 

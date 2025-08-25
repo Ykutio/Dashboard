@@ -1,15 +1,22 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Product;
 
+use App\Constants\SortDirection;
+use App\Models\Brand\Brand;
+use App\Models\Category\Category;
+use App\Models\Country\Country;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Pagination\LengthAwarePaginator;
+use App\Models\Product\Enum\ProductStatusEnum;
 
 class Product extends Model
 {
     const PAGE_LIMIT = 10;
+    const PER_PAGE = 100;
 
     protected $fillable = [
         'name',
@@ -74,5 +81,19 @@ class Product extends Model
             });
         }
         return $query->paginate(self::PAGE_LIMIT);
+    }
+
+    public static function getProductsList(
+        int $perPage = self::PER_PAGE,
+        int $offset = 0,
+        string $sortField = 'id',
+        string $sortDirection = SortDirection::ASC
+    ): Collection {
+        return Product::query()
+            ->limit($perPage)
+            ->offset($offset)
+            ->orderBy($sortField, $sortDirection)
+            ->where('status', '=', ProductStatusEnum::ACTIVE)
+            ->get();
     }
 }

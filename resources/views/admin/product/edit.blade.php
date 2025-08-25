@@ -1,5 +1,5 @@
 @php
-    use \App\Models\Enum\ProductStatusEnum;
+    use App\Models\Product\Enum\ProductStatusEnum;
 @endphp
 
 @extends('layouts.admin_layout')
@@ -109,15 +109,15 @@
                                     <label for="img">Product image</label>
                                     @if(!empty($product['img']))
                                         @php
-                                        $imagePath = str_starts_with($product['img'], 'https://')
-                                        ? $product['img']
-                                        : asset('/storage/' . $product['img']);
+                                            $imagePath = str_starts_with($product['img'], 'https://')
+                                            ? $product['img']
+                                            : asset('/storage/' . $product['img']);
                                         @endphp
                                         <img src="{{ $imagePath }}" class="imgUploaded m-md-4"
                                              style="display: block; width: 200px; height: 200px">
                                     @endif
                                     <div class="form-group">
-                                        <input type="file" value="{{ $product['img'] }}" name="img" class="form-control"
+                                        <input type="file" style="padding: 0.1px" value="{{ $product['img'] }}" name="img" class="form-control"
                                                readonly>
                                     </div>
                                 </div>
