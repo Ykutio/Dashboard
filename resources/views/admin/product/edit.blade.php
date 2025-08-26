@@ -62,7 +62,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="quantity">Product quantity</label>
-                                    <input type="text" value="{{ $product['price'] }}" class="form-control" id="price"
+                                    <input type="text" value="{{ $product['quantity'] }}" class="form-control" id="price"
                                            name="quantity" placeholder="Enter product quantity">
                                 </div>
                                 <label for="category_id">Product category</label>
@@ -75,7 +75,7 @@
                                 </select>
                                 <label for="brand_id">Product brand</label>
                                 <select name="brand_id" class="form-control" required>
-                                    <option value="" selected>Enter product quantity</option>
+                                    <option value="" selected>Select product brand</option>
                                     @foreach( $brands as $item)
                                         <option value="{{ $item['id'] }}"
                                                 @if($item['id'] == $product['brand_id']) selected @endif >{{ $item['name'] }}</option>

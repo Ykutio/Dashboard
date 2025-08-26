@@ -77,9 +77,9 @@ class ProductController extends Controller
      */
     public function edit(Product $product): View
     {
-        $categories = Category::getAllCategoriesPaginate();
-        $brands = Brand::getAllBrandsPaginate();
-        $countries = Country::getAllCountriesPaginate();
+        $categories = Category::getAllCategories();
+        $brands = Brand::getAllBrands();
+        $countries = Country::getAllCountries();
 
         return view('admin.product.edit', [
             'product' => $product,
