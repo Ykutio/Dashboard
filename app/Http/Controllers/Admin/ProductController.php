@@ -22,7 +22,7 @@ class ProductController extends Controller
     {
         $validatedData = $request->validated();
 
-        $products = Product::productsByFilter($validatedData);
+        $products = Product::productsByFilter($request->getDTO());
         $products->load('brand', 'category', 'country'); // To resolve "N+1 query" problem
         $brands = Brand::getAllBrands();
         $countries = Country::getAllCountries();
@@ -42,9 +42,9 @@ class ProductController extends Controller
      */
     public function create(): View
     {
-        $categories = Category::getAllCategoriesPaginate();
-        $brands = Brand::getAllBrandsPaginate();
-        $countries = Country::getAllCountriesPaginate();
+        $categories = Category::getAllCategories();
+        $brands = Brand::getAllBrands();
+        $countries = Country::getAllCountries();
 
         return view('admin.product.create', [
             'categories' => $categories,

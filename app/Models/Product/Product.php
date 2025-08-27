@@ -6,6 +6,7 @@ use App\Constants\SortDirection;
 use App\Models\Brand\Brand;
 use App\Models\Category\Category;
 use App\Models\Country\Country;
+use App\Services\Product\DTO\ProductDTO;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -64,26 +65,26 @@ class Product extends Model
         return $this->belongsTo(Country::class);
     }
 
-    public static function productsByFilter(array $params = []): LengthAwarePaginator
+    public static function productsByFilter(ProductDTO $productDTO ): LengthAwarePaginator
     {
         $query = Product::query();
 
-        if (!empty($params['status'])) {
-            $query->where('status', $params['status']);
+        if (!empty($productDTO->getProductStatus())) {
+            $query->where('status', $productDTO->getProductStatus());
         }
-        if (!empty($params['category_id'])) {
-            $query->where('category_id', $params['category_id']);
+        if (!empty($productDTO->getProductCategory())) {
+            $query->where('category_id', $productDTO->getProductCategory());
         }
-        if (!empty($params['country_id'])) {
-            $query->where('country_id', $params['country_id']);
+        if (!empty($productDTO->getProductCountry())) {
+            $query->where('country_id', $productDTO->getProductCountry());
         }
-        if (!empty($params['brand_id'])) {
-            $query->where('brand_id', $params['brand_id']);
+        if (!empty($productDTO->getProductBrand())) {
+            $query->where('brand_id', $productDTO->getProductBrand());
         }
-        if (!empty($params['search'])) {
-            $query->where(function ($query) use ($params): void {
-                $query->where('name', 'LIKE', '%' . $params['search'] . '%')
-                    ->orWhere('description', 'LIKE', '%' . $params['search'] . '%');
+        if (!empty($productDTO->getProductSearch())) {
+            $query->where(function ($query) use ($productDTO): void {
+                $query->where('name', 'LIKE', '%' . $productDTO->getProductSearch() . '%')
+                    ->orWhere('description', 'LIKE', '%' . $productDTO->getProductSearch() . '%');
             });
         }
         return $query->paginate(self::PAGE_LIMIT);

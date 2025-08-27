@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Admin\Product;
 
 use App\Models\Product\Enum\ProductStatusEnum;
+use App\Services\Product\DTO\ProductDTO;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
@@ -24,11 +25,27 @@ class ProductListRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'brand_id' => ['sometimes', 'nullable', 'integer', 'exists:brands,id'],
-            'category_id' => ['sometimes', 'nullable', 'integer', 'exists:categories,id'],
-            'country_id' => ['sometimes', 'nullable', 'integer', 'exists:countries,id'],
-            'status' => ['sometimes', 'nullable', 'string', Rule::in(array_keys(ProductStatusEnum::getProductStatusMap()))],
+            'brand_id' => ['sometimes', 'nullable', 'integer', 'min:1'],
+            'category_id' => ['sometimes', 'nullable', 'integer', 'min:1'],
+            'country_id' => ['sometimes', 'nullable', 'integer', 'min:1'],
+            'status' => [
+                'sometimes',
+                'nullable',
+                'string',
+                Rule::in(array_keys(ProductStatusEnum::getProductStatusMap()))
+            ],
             'search' => ['sometimes', 'nullable', 'string', 'min:3', 'max:20']
         ];
+    }
+
+    public function getDTO(): ProductDTO
+    {
+        return new ProductDTO(
+            $this->input('brand_id', null),
+            $this->input('category_id', null),
+            $this->input('country_id', null),
+            $this->input('status', null),
+            $this->input('search', null)
+        );
     }
 }
