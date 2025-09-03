@@ -2,15 +2,13 @@
 
 namespace App\Services\Product\DTO;
 
-use Illuminate\Http\Request;
-
 class ProductDTO
 {
-    private ?int $brand_id = null;
-    private ?int $category_id = null;
-    private ?int $country_id = null;
-    private ?string $status = null;
-    private ?string $search = null;
+    private ?int $brand_id;
+    private ?int $category_id;
+    private ?int $country_id;
+    private ?string $status;
+    private ?string $search;
 
     public function __construct(
         ?int $brand_id = null,

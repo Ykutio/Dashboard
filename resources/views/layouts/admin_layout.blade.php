@@ -26,7 +26,8 @@
     <!-- summernote -->
     <link rel="stylesheet" href="/admin/plugins/css/summernote-bs4.min.css">
     <!-- Tiny File Manager - My Key -->
-    <script src="https://cdn.tiny.cloud/1/fgny83xtzjbeovf8dz10su73bye5yadnq5s4dmm4abfmdeea/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
+    <script src="https://cdn.tiny.cloud/1/fgny83xtzjbeovf8dz10su73bye5yadnq5s4dmm4abfmdeea/tinymce/7/tinymce.min.js"
+            referrerpolicy="origin"></script>
     <!-- colorbox - pop-up -->
     <link href="/admin/dist/css/colorbox.css" rel="stylesheet">
 </head>
@@ -39,9 +40,6 @@
         <ul class="navbar-nav">
             <li class="nav-item">
                 <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
-            </li>
-            <li class="nav-item d-none d-sm-inline-block">
-                <a href="{{ route('dashboard') }}" class="nav-link">Return to the site page</a>
             </li>
         </ul>
 
@@ -68,20 +66,42 @@
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
         <!-- Brand Logo -->
         <a href="{{ route('adminpanel_home' )}}" class="brand-link">
-            <img src="/admin/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
+            <img src="/admin/img/AdminLogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
                  style="opacity: .8">
-            <span class="brand-text font-weight-light">Dashboard</span>
+            <span class="brand-text font-weight-light">Admin Panel</span>
         </a>
-
         <!-- Sidebar -->
         <div class="sidebar">
             <!-- Sidebar user panel (optional) -->
             <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                 <div class="image">
-                    <img src="/admin/img/user-profile.png" class="img-circle elevation-2" alt="User Image">
+                    <img src="/admin/img/UserProfile.png" class="img-circle elevation-2" alt="User Image">
                 </div>
                 <div class="info">
-                    <a href="{{ route('profile.edit' )}}" class="d-block">{{ Auth::user()->name }}</a>
+                    <a href="{{ route('profile.edit' )}}" class="d-block">{{ Auth::user()->name }}'s profile</a>
+                </div>
+            </div>
+            <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+                <div class="image">
+                    <img src="/admin/img/Logout.png" class="img-circle elevation-2" alt="Log Out">
+                </div>
+                <div class="info">
+                    <form method="POST" action="{{ route('logout') }}" class="d-block">
+                        @csrf
+                        <x-responsive-nav-link :href="route('logout')"
+                                               onclick="event.preventDefault();
+                                                this.closest('form').submit();">
+                            Log Out
+                        </x-responsive-nav-link>
+                    </form>
+                </div>
+            </div>
+            <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+                <div class="image">
+                    <img src="/admin/img/Home.png" class="img-circle elevation-2" alt="Home">
+                </div>
+                <div class="info">
+                    <a href="{{ route('dashboard') }}" class="d-block"> Return to the site page</a>
                 </div>
             </div>
 
@@ -109,7 +129,7 @@
                                     <p>All products</p>
                                 </a>
                             </li>
-                            <li class="nav-item">
+                            <li>
                                 <a href="{{ route('product.create') }}" class="nav-link">
                                     <p>Add product</p>
                                 </a>
@@ -130,7 +150,7 @@
                                     <p>All brands</p>
                                 </a>
                             </li>
-                            <li class="nav-item">
+                            <li>
                                 <a href="{{ route('brand.create') }}" class="nav-link">
                                     <p>Add brand</p>
                                 </a>
@@ -151,7 +171,7 @@
                                     <p>All categories</p>
                                 </a>
                             </li>
-                            <li class="nav-item">
+                            <li>
                                 <a href="{{ route('category.create') }}" class="nav-link">
                                     <p>Add category</p>
                                 </a>
@@ -172,7 +192,7 @@
                                     <p>All countries</p>
                                 </a>
                             </li>
-                            <li class="nav-item">
+                            <li>
                                 <a href="{{ route('country.create') }}" class="nav-link">
                                     <p>Add country</p>
                                 </a>

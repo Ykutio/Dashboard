@@ -2,17 +2,17 @@
 
 namespace App\Models\Product;
 
-use App\Constants\SortDirection;
 use App\Models\Brand\Brand;
 use App\Models\Category\Category;
 use App\Models\Country\Country;
+use App\Models\Product\Enum\ProductStatusEnum;
+use App\Services\Product\DTO\ProductApiDTO;
 use App\Services\Product\DTO\ProductDTO;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Pagination\LengthAwarePaginator;
-use App\Models\Product\Enum\ProductStatusEnum;
 
 class Product extends Model
 {
@@ -36,9 +36,9 @@ class Product extends Model
     public static function productCount(bool $isActive = false): int
     {
         $query = Product::query();
-        if($isActive){
+        if ($isActive) {
             return $query
-                ->where('status', '=',ProductStatusEnum::ACTIVE)
+                ->where('status', '=', ProductStatusEnum::ACTIVE)
                 ->count();
         }
         return Product::all()->count();
@@ -65,7 +65,7 @@ class Product extends Model
         return $this->belongsTo(Country::class);
     }
 
-    public static function productsByFilter(ProductDTO $productDTO ): LengthAwarePaginator
+    public static function productsByFilter(ProductDTO $productDTO): LengthAwarePaginator
     {
         $query = Product::query();
 
@@ -90,16 +90,12 @@ class Product extends Model
         return $query->paginate(self::PAGE_LIMIT);
     }
 
-    public static function getProductsList(
-        int $perPage = self::PER_PAGE,
-        int $offset = 0,
-        string $sortField = 'id',
-        string $sortDirection = SortDirection::ASC
-    ): Collection {
+    public static function getProductsList(ProductApiDTO $productApiDTO): Collection
+    {
         return Product::query()
-            ->limit($perPage)
-            ->offset($offset)
-            ->orderBy($sortField, $sortDirection)
+            ->limit($productApiDTO->getPerPage())
+            ->offset($productApiDTO->getOffset())
+            ->orderBy($productApiDTO->getSortField(), $productApiDTO->getSortOrder())
             ->where('status', '=', ProductStatusEnum::ACTIVE)
             ->get();
     }

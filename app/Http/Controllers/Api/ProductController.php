@@ -17,23 +17,23 @@ class ProductController extends Controller
      */
     public function index(ProductListRequest $request): JsonResponse
     {
-        $perPage = $request->input('per_page', Product::PER_PAGE);
+        $perPage = $request->input('perPage', Product::PER_PAGE);
         $offset = $request->input('offset', 0);
-        $sortField = $request->input('sort_field', 'id');
-        $sortDirection = $request->input('sort_direction', SortDirection::ASC);
+        $sortField = $request->input('sortField', 'id');
+        $sortDirection = $request->input('sortDirection', SortDirection::ASC);
 
         $productCount = Product::productCount(true);
 
-        $data = Product::getProductsList($perPage, $offset, $sortField, $sortDirection);
+        $data = Product::getProductsList($request->getApiDTO());
 
         return response()->json([
             'status' => StatusResponse::SUCCESS,
             'data' => ProductResource::collection($data),
-            'per_page' => $perPage,
+            'perPage' => $perPage,
             'offset' => $offset,
-            'product_count' => $productCount,
-            'sort_field' => $sortField,
-            'sort_direction' => $sortDirection
+            'productCount' => $productCount,
+            'sortField' => $sortField,
+            'sortDirection' => $sortDirection
         ]);
     }
 

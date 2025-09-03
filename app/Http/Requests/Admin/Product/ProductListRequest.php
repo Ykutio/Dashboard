@@ -41,11 +41,11 @@ class ProductListRequest extends FormRequest
     public function getDTO(): ProductDTO
     {
         return new ProductDTO(
-            $this->input('brand_id', null),
-            $this->input('category_id', null),
-            $this->input('country_id', null),
-            $this->input('status', null),
-            $this->input('search', null)
+            $this->input('brand_id'),
+            $this->input('category_id'),
+            $this->input('country_id'),
+            $this->input('status'),
+            $this->input('search')
         );
     }
 }

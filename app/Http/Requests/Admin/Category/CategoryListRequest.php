@@ -24,7 +24,12 @@ class CategoryListRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'status' => ['sometimes', 'nullable', 'string', Rule::in(array_keys(CategoryStatusEnum::getCategoryStatusMap()))],
+            'status' => [
+                'sometimes',
+                'nullable',
+                'string',
+                Rule::in(array_keys(CategoryStatusEnum::getCategoryStatusMap()))
+            ],
         ];
     }
 }

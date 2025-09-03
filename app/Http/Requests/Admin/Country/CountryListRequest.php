@@ -5,6 +5,7 @@ namespace App\Http\Requests\Admin\Country;
 use App\Models\Country\Enum\CountryStatusEnum;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
+
 class CountryListRequest extends FormRequest
 {
     /**
@@ -23,7 +24,12 @@ class CountryListRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'status' => ['sometimes', 'nullable', 'string', Rule::in(array_keys(CountryStatusEnum::getCountryStatusMap()))],
+            'status' => [
+                'sometimes',
+                'nullable',
+                'string',
+                Rule::in(array_keys(CountryStatusEnum::getCountryStatusMap()))
+            ],
         ];
     }
 }

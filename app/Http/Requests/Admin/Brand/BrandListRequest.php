@@ -5,6 +5,7 @@ namespace App\Http\Requests\Admin\Brand;
 use App\Models\Brand\Enum\BrandStatusEnum;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
+
 class BrandListRequest extends FormRequest
 {
     /**
