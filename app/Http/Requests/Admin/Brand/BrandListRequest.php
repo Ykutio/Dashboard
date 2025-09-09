@@ -25,7 +25,7 @@ class BrandListRequest extends FormRequest
     {
         return [
             'country_id' => ['sometimes', 'nullable', 'integer', 'exists:countries,id'],
-            'status' => ['sometimes', 'nullable', 'string', Rule::in(array_keys(BrandStatusEnum::getBrandStatusMap()))],
+            'status'     => ['sometimes', 'nullable', 'string', Rule::in(array_keys(BrandStatusEnum::getBrandStatusMap()))],
         ];
     }
 }

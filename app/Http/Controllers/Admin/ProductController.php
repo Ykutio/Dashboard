@@ -29,11 +29,11 @@ class ProductController extends Controller
         $categories = Category::getAllCategories();
 
         return view('admin.product.index', [
-            'products' => $products,
-            'brands' => $brands,
-            'countries' => $countries,
+            'products'   => $products,
+            'brands'     => $brands,
+            'countries'  => $countries,
             'categories' => $categories,
-            'filters' => $validatedData
+            'filters'    => $validatedData,
         ]);
     }
 
@@ -48,8 +48,8 @@ class ProductController extends Controller
 
         return view('admin.product.create', [
             'categories' => $categories,
-            'brands' => $brands,
-            'countries' => $countries
+            'brands'     => $brands,
+            'countries'  => $countries,
         ]);
     }
 
@@ -82,10 +82,10 @@ class ProductController extends Controller
         $countries = Country::getAllCountries();
 
         return view('admin.product.edit', [
-            'product' => $product,
+            'product'    => $product,
             'categories' => $categories,
-            'brands' => $brands,
-            'countries' => $countries
+            'brands'     => $brands,
+            'countries'  => $countries,
         ]);
     }
 

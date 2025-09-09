@@ -46,7 +46,7 @@
                                 <div class="form-group">
                                     <label for="name">Country name</label>
                                     <input type="text" class="form-control" id="name" name="name"
-                                           placeholder="Введите название страны" required>
+                                           placeholder="Enter country name" required>
                                 </div>
                                 <label for="country">Status</label>
                                 <select name="status" class="form-control">

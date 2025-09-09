@@ -19,7 +19,7 @@ class CountryController extends Controller
 
         return view('admin.country.index', [
             'countries' => $countries,
-            'filters' => $validatedData
+            'filters'   => $validatedData,
         ]);
     }
 
@@ -50,7 +50,7 @@ class CountryController extends Controller
     public function edit(Country $country): View
     {
         return view('admin.country.edit', [
-            'country' => $country
+            'country' => $country,
         ]);
     }
 

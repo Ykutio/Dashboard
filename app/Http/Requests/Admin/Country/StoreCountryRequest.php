@@ -24,7 +24,7 @@ class StoreCountryRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required', 'unique:countries,name', 'max:255', 'string'],
+            'name'   => ['required', 'unique:countries,name', 'max:255', 'string'],
             'status' => ['required', 'string', Rule::in(array_keys(CountryStatusEnum::getCountryStatusMap()))],
         ];
     }

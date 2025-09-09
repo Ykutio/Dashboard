@@ -22,14 +22,6 @@ class Brand extends Model
         return Brand::all()->count();
     }
 
-    /**
-     * @return Collection|static
-     */
-    public static function getAllBrandsPaginate(): LengthAwarePaginator
-    {
-        return Brand::orderBy('id', 'asc')
-            ->paginate(self::PAGE_LIMIT);
-    }
 
     public function country(): BelongsTo
     {
@@ -46,11 +38,17 @@ class Brand extends Model
         if (!empty($params['country_id'])) {
             $query->where('country_id', $params['country_id']);
         }
+
         return $query->paginate(self::PAGE_LIMIT);
     }
 
     public static function getAllBrands(): Collection
     {
         return Brand::orderBy('id', 'asc')->get();
+    }
+
+    public static function getBrandById(int $id): ?Brand
+    {
+        return Brand::where('id', $id)->first();
     }
 }

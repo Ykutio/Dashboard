@@ -19,7 +19,7 @@ class CategoryController extends Controller
 
         return view('admin.category.index', [
             'categories' => $categories,
-            'filters' => $validatedData
+            'filters'    => $validatedData,
         ]);
     }
 
@@ -42,7 +42,7 @@ class CategoryController extends Controller
     public function edit(Category $category): View
     {
         return view('admin.category.edit', [
-            'category' => $category
+            'category' => $category,
         ]);
     }
 

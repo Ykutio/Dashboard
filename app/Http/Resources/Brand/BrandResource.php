@@ -16,10 +16,10 @@ class BrandResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'id' => $this->id,
-            'name' => $this->name,
-            'status' => $this->status,
-            'country' => BrandListResource::make($this->country),
+            'id'         => $this->id,
+            'name'       => $this->name,
+            'status'     => $this->status,
+            'country'    => BrandListResource::make($this->country),
             'created_at' => $this->created_at->format(DataFormat::DATA_FORMAT),
         ];
     }

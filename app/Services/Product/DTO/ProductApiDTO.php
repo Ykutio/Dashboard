@@ -4,22 +4,12 @@ namespace App\Services\Product\DTO;
 
 class ProductApiDTO
 {
-    private ?int $perPage;
-    private ?int $offset;
-    private ?string $sortField;
-    private ?string $sortOrder;
-
-
     public function __construct(
-        ?int $perPage = null,
-        ?int $offset = null,
-        ?string $sortField = null,
-        ?string $sortOrder = null
+        private readonly ?int $perPage = null,
+        private readonly ?int $offset = null,
+        private readonly ?string $sortField = null,
+        private readonly ?string $sortOrder = null
     ) {
-        $this->perPage = $perPage;
-        $this->offset = $offset;
-        $this->sortField = $sortField;
-        $this->sortOrder = $sortOrder;
     }
 
     public function getPerPage(): ?int

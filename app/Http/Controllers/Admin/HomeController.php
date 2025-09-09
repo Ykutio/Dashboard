@@ -20,9 +20,9 @@ class HomeController extends Controller
 
         return view('admin.home.index', [
             'categoryCount' => $categoryCount,
-            'brandCount' => $brandCount,
-            'productCount' => $productCount,
-            'countryCount' => $countryCount,
+            'brandCount'    => $brandCount,
+            'productCount'  => $productCount,
+            'countryCount'  => $countryCount,
         ]);
     }
 }

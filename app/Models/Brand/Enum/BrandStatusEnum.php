@@ -10,7 +10,7 @@ enum BrandStatusEnum: string
     public static function getBrandStatusMap(): array
     {
         return [
-            self::ACTIVE->value => 'Active',
+            self::ACTIVE->value   => 'Active',
             self::INACTIVE->value => 'Not Active',
         ];
     }

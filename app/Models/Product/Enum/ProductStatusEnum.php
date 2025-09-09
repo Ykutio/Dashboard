@@ -10,7 +10,7 @@ enum ProductStatusEnum: string
     public static function getProductStatusMap(): array
     {
         return [
-            self::ACTIVE->value => 'Active',
+            self::ACTIVE->value   => 'Active',
             self::INACTIVE->value => 'Not Active',
         ];
     }

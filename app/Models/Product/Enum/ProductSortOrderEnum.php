@@ -15,7 +15,7 @@ class ProductSortOrderEnum
             self::ID,
             self::NAME,
             self::PRICE,
-            self::QUANTITY
+            self::QUANTITY,
         ];
     }
 }

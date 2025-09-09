@@ -34,11 +34,17 @@ class Country extends Model
         if (!empty($params['status'])) {
             $query->where('status', $params['status']);
         }
+
         return $query->paginate(self::PAGE_LIMIT);
     }
 
     public static function getAllCountries(): Collection
     {
         return Country::orderBy('id', 'asc')->get();
+    }
+
+    public static function getCountryById(int $id): ?Country
+    {
+        return Country::where('id', $id)->first();
     }
 }

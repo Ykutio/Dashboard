@@ -24,9 +24,9 @@ class BrandController extends Controller
         $countries = Country::getAllCountries();
 
         return view('admin.brand.index', [
-            'brands' => $brands,
+            'brands'    => $brands,
             'countries' => $countries,
-            'filters' => $validatedData
+            'filters'   => $validatedData,
         ]);
     }
 
@@ -38,7 +38,7 @@ class BrandController extends Controller
         $countries = Country::getAllCountriesPaginate();
 
         return view('admin.brand.create', [
-            'countries' => $countries
+            'countries' => $countries,
         ]);
     }
 
@@ -63,8 +63,8 @@ class BrandController extends Controller
         $countries = Country::getAllCountriesPaginate();
 
         return view('admin.brand.edit', [
-            'brand' => $brand,
-            'countries' => $countries
+            'brand'     => $brand,
+            'countries' => $countries,
         ]);
     }
 

@@ -28,7 +28,7 @@ class CountryListRequest extends FormRequest
                 'sometimes',
                 'nullable',
                 'string',
-                Rule::in(array_keys(CountryStatusEnum::getCountryStatusMap()))
+                Rule::in(array_keys(CountryStatusEnum::getCountryStatusMap())),
             ],
         ];
     }

@@ -17,23 +17,23 @@ class ProductController extends Controller
      */
     public function index(ProductListRequest $request): JsonResponse
     {
-        $perPage = $request->input('perPage', Product::PER_PAGE);
+        $perPage = $request->input('per_page', Product::PER_PAGE);
         $offset = $request->input('offset', 0);
-        $sortField = $request->input('sortField', 'id');
-        $sortDirection = $request->input('sortDirection', SortDirection::ASC);
+        $sortField = $request->input('sort_field', 'id');
+        $sortDirection = $request->input('sort_direction', SortDirection::ASC);
 
         $productCount = Product::productCount(true);
 
         $data = Product::getProductsList($request->getApiDTO());
 
         return response()->json([
-            'status' => StatusResponse::SUCCESS,
-            'data' => ProductResource::collection($data),
-            'perPage' => $perPage,
-            'offset' => $offset,
-            'productCount' => $productCount,
-            'sortField' => $sortField,
-            'sortDirection' => $sortDirection
+            'status'         => StatusResponse::SUCCESS,
+            'data'           => ProductResource::collection($data),
+            'per_page'       => $perPage,
+            'offset'         => $offset,
+            'product_count'  => $productCount,
+            'sort_field'     => $sortField,
+            'sort_direction' => $sortDirection,
         ]);
     }
 
@@ -42,10 +42,17 @@ class ProductController extends Controller
      */
     public function show(int $id): JsonResponse
     {
-        $data = new ProductResource(Product::findOrFail($id));
+        $product = Product::getProductById($id);
+        if (empty($product)) {
+            return response()->json([
+                'status' => StatusResponse::ERROR,
+            ]);
+        }
+        $data = new ProductResource($product);
+
         return response()->json([
             'status' => StatusResponse::SUCCESS,
-            'data' => $data
+            'data'   => $data,
         ]);
     }
 }

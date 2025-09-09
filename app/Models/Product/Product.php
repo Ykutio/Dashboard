@@ -28,7 +28,7 @@ class Product extends Model
         'category_id',
         'country_id',
         'quantity',
-        'status'
+        'status',
     ];
 
     use HasFactory;
@@ -36,18 +36,12 @@ class Product extends Model
     public static function productCount(bool $isActive = false): int
     {
         $query = Product::query();
-        if ($isActive) {
-            return $query
-                ->where('status', '=', ProductStatusEnum::ACTIVE)
-                ->count();
-        }
-        return Product::all()->count();
-    }
 
-    public static function getAllProductsPaginate(): LengthAwarePaginator
-    {
-        return Product::orderBy('id', 'asc')
-            ->paginate(self::PAGE_LIMIT);
+        if ($isActive) {
+            $query->where('status', ProductStatusEnum::ACTIVE);
+        }
+
+        return $query->count();
     }
 
     public function category(): BelongsTo
@@ -83,10 +77,12 @@ class Product extends Model
         }
         if (!empty($productDTO->getProductSearch())) {
             $query->where(function ($query) use ($productDTO): void {
-                $query->where('name', 'LIKE', '%' . $productDTO->getProductSearch() . '%')
+                $query
+                    ->where('name', 'LIKE', '%' . $productDTO->getProductSearch() . '%')
                     ->orWhere('description', 'LIKE', '%' . $productDTO->getProductSearch() . '%');
             });
         }
+
         return $query->paginate(self::PAGE_LIMIT);
     }
 
@@ -96,7 +92,12 @@ class Product extends Model
             ->limit($productApiDTO->getPerPage())
             ->offset($productApiDTO->getOffset())
             ->orderBy($productApiDTO->getSortField(), $productApiDTO->getSortOrder())
-            ->where('status', '=', ProductStatusEnum::ACTIVE)
+            ->where('status', ProductStatusEnum::ACTIVE)
             ->get();
+    }
+
+    public static function getProductById(int $id): ?Product
+    {
+        return Product::where('id', $id)->first();
     }
 }

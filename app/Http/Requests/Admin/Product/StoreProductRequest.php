@@ -24,15 +24,15 @@ class StoreProductRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required', 'unique:brands,name', 'max:255', 'string'],
+            'name'        => ['required', 'unique:brands,name', 'max:255', 'string'],
             'description' => ['required', 'string'],
-            'img' => ['nullable', 'image', 'mimes:jpg,jpeg,png', 'max:2048'],
-            'price' => ['required', 'integer'],
-            'brand_id' => ['nullable', 'integer', 'exists:brands,id'],
+            'img'         => ['nullable', 'image', 'mimes:jpg,jpeg,png', 'max:2048'],
+            'price'       => ['required', 'integer'],
+            'brand_id'    => ['nullable', 'integer', 'exists:brands,id'],
             'category_id' => ['nullable', 'integer', 'exists:categories,id'],
-            'country_id' => ['nullable', 'integer', 'exists:countries,id'],
-            'quantity' => ['nullable', 'integer'],
-            'status' => ['required', 'string', Rule::in(array_keys(ProductStatusEnum::getProductStatusMap()))],
+            'country_id'  => ['nullable', 'integer', 'exists:countries,id'],
+            'quantity'    => ['nullable', 'integer'],
+            'status'      => ['required', 'string', Rule::in(array_keys(ProductStatusEnum::getProductStatusMap()))],
         ];
     }
 }

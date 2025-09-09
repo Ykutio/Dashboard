@@ -18,7 +18,7 @@ class CategoryController extends Controller
     {
         return response()->json([
             'status' => StatusResponse::SUCCESS,
-            'data' => CategoryListResource::collection(Category::all())
+            'data'   => CategoryListResource::collection(Category::all()),
         ]);
     }
 
@@ -27,10 +27,19 @@ class CategoryController extends Controller
      */
     public function show(int $id): JsonResponse
     {
-        $data = new CategoryListResource(Category::findOrFail($id));
+        $category = Category::getCategoryById($id);
+
+        if (empty($category)) {
+            return response()->json([
+                'status' => StatusResponse::ERROR,
+            ]);
+        }
+
+        $data = new CategoryListResource($category);
+
         return response()->json([
             'status' => StatusResponse::SUCCESS,
-            'data' => $data
+            'data'   => $data,
         ]);
     }
 

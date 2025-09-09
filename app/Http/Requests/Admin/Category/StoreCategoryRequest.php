@@ -24,7 +24,7 @@ class StoreCategoryRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required', 'unique:categories,name', 'max:255', 'string'],
+            'name'   => ['required', 'unique:categories,name', 'max:255', 'string'],
             'status' => ['required', 'string', Rule::in(array_keys(CategoryStatusEnum::getCategoryStatusMap()))],
         ];
     }

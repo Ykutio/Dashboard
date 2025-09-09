@@ -28,7 +28,7 @@ class CategoryListRequest extends FormRequest
                 'sometimes',
                 'nullable',
                 'string',
-                Rule::in(array_keys(CategoryStatusEnum::getCategoryStatusMap()))
+                Rule::in(array_keys(CategoryStatusEnum::getCategoryStatusMap())),
             ],
         ];
     }

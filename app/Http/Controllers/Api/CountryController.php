@@ -17,7 +17,7 @@ class CountryController extends Controller
     {
         return response()->json([
             'status' => StatusResponse::SUCCESS,
-            'data' => CountryListResource::collection(Country::all())
+            'data'   => CountryListResource::collection(Country::all()),
         ]);
     }
 
@@ -26,10 +26,19 @@ class CountryController extends Controller
      */
     public function show(int $id): JsonResponse
     {
-        $data = new CountryListResource(Country::findOrFail($id));
+        $country = Country::getCountryById($id);
+
+        if (empty($country)) {
+            return response()->json([
+                'status' => StatusResponse::ERROR,
+            ]);
+        }
+
+        $data = new CountryListResource($country);
+
         return response()->json([
             'status' => StatusResponse::SUCCESS,
-            'data' => $data
+            'data'   => $data,
         ]);
     }
 

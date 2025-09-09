@@ -18,7 +18,7 @@ class BrandController extends Controller
     {
         return response()->json([
             'status' => StatusResponse::SUCCESS,
-            'data' => BrandResource::collection(Brand::all())
+            'data'   => BrandResource::collection(Brand::all()),
         ]);
     }
 
@@ -27,10 +27,19 @@ class BrandController extends Controller
      */
     public function show(int $id): JsonResponse
     {
-        $data = new BrandResource(Brand::findOrFail($id));
+        $brand = Brand::getBrandById($id);
+
+        if (empty($brand)) {
+            return response()->json([
+                'status' => StatusResponse::ERROR,
+            ]);
+        }
+
+        $data = new BrandResource($brand);
+
         return response()->json([
             'status' => StatusResponse::SUCCESS,
-            'data' => $data
+            'data'   => $data,
         ]);
     }
 

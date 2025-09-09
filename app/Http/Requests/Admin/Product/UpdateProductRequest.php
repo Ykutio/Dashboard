@@ -24,15 +24,15 @@ class UpdateProductRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required', 'max:255', 'string'],
+            'name'        => ['required', 'max:255', 'string'],
             'description' => ['required', 'string'],
-            'img' => ['sometimes', 'nullable', 'file', 'mimes:jpg,png,pdf', 'max:2048'],
-            'price' => ['required', 'integer'],
-            'brand_id' => ['nullable', 'integer'],
+            'img'         => ['sometimes', 'nullable', 'file', 'mimes:jpg,png,pdf', 'max:2048'],
+            'price'       => ['required', 'integer'],
+            'brand_id'    => ['nullable', 'integer'],
             'category_id' => ['nullable', 'integer'],
-            'country_id' => ['nullable', 'integer'],
-            'quantity' => ['nullable', 'integer'],
-            'status' => ['required', 'string', Rule::in(array_keys(ProductStatusEnum::getProductStatusMap()))],
+            'country_id'  => ['nullable', 'integer'],
+            'quantity'    => ['nullable', 'integer'],
+            'status'      => ['required', 'string', Rule::in(array_keys(ProductStatusEnum::getProductStatusMap()))],
         ];
     }
 }
