@@ -9,6 +9,7 @@ class ProductFactory extends Factory
     public function definition(): array
     {
         $name = fake()->word();
+
         $randomImages = [
             'https://m.media-amazon.com/images/I/41WpqIvJWRL._AC_UY436_QL65_.jpg',
             'https://m.media-amazon.com/images/I/61ghDjhS8vL._AC_UY436_QL65_.jpg',
