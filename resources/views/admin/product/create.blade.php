@@ -1,5 +1,5 @@
 @php
-    use \App\Models\Enum\ProductStatusEnum;
+    use App\Models\Product\Enum\ProductStatusEnum;
 @endphp
 
 @extends('layouts.admin_layout')
@@ -40,7 +40,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="card card-primary">
-                        <form action="{{ route('product.store') }}" method="POST">
+                        <form action="{{ route('product.store') }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="card-body">
                                 <div class="form-group">
@@ -102,9 +102,10 @@
                                     <label for="feature_image">Product image</label>
                                     <img src="/admin/img/no-image.png" class="imgUploaded m-md-4"
                                          style="display: block; width: 200px; height: 200px">
-                                    <input type="text" name="img" id="feature_image" class="form-control"
-                                           name="feature_image" value="" readonly>
-                                    <a href="" class="popup_selector" data-inputid="feature_image">Select product image</a>
+                                    <div class="form-group">
+                                        <input type="file" style="padding: 0.1px" name="img" class="form-control"
+                                               readonly>
+                                    </div>
                                 </div>
                             </div>
                             <div class="card-footer">

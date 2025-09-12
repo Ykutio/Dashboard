@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\Enum;
+namespace App\Models\Category\Enum;
 
 enum CategoryStatusEnum: string
 {
@@ -10,7 +10,7 @@ enum CategoryStatusEnum: string
     public static function getCategoryStatusMap(): array
     {
         return [
-            self::ACTIVE->value => 'Active',
+            self::ACTIVE->value   => 'Active',
             self::INACTIVE->value => 'Not Active',
         ];
     }

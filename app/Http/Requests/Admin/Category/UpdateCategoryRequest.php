@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests\Admin\Category;
 
-use App\Models\Enum\CategoryStatusEnum;
+use App\Models\Category\Enum\CategoryStatusEnum;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
@@ -24,7 +24,7 @@ class UpdateCategoryRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required', 'max:255', 'string'],
+            'name'   => ['required', 'max:255', 'string'],
             'status' => ['required', 'string', Rule::in(array_keys(CategoryStatusEnum::getCategoryStatusMap()))],
         ];
     }

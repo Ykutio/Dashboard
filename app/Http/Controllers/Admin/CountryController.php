@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Country\CountryListRequest;
 use App\Http\Requests\Admin\Country\StoreCountryRequest;
 use App\Http\Requests\Admin\Country\UpdateCountryRequest;
-use App\Models\Country;
+use App\Models\Country\Country;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 
@@ -19,7 +19,7 @@ class CountryController extends Controller
 
         return view('admin.country.index', [
             'countries' => $countries,
-            'filters' => $validatedData
+            'filters'   => $validatedData,
         ]);
     }
 
@@ -50,7 +50,7 @@ class CountryController extends Controller
     public function edit(Country $country): View
     {
         return view('admin.country.edit', [
-            'country' => $country
+            'country' => $country,
         ]);
     }
 

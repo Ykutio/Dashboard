@@ -4,9 +4,8 @@ namespace App\Http\Controllers\Api;
 
 use App\Constants\StatusResponse;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\BrandResource;
-use App\Models\Brand;
-use Illuminate\Http\Resources\Json\JsonResource;
+use App\Http\Resources\Brand\BrandResource;
+use App\Models\Brand\Brand;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 
@@ -19,16 +18,29 @@ class BrandController extends Controller
     {
         return response()->json([
             'status' => StatusResponse::SUCCESS,
-            'data' => BrandResource::collection(Brand::all())
+            'data'   => BrandResource::collection(Brand::all()),
         ]);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id): JsonResource
+    public function show(int $id): JsonResponse
     {
-        return new BrandResource(Brand::findOrFail($id));
+        $brand = Brand::getBrandById($id);
+
+        if (empty($brand)) {
+            return response()->json([
+                'status' => StatusResponse::ERROR,
+            ]);
+        }
+
+        $data = new BrandResource($brand);
+
+        return response()->json([
+            'status' => StatusResponse::SUCCESS,
+            'data'   => $data,
+        ]);
     }
 
 }

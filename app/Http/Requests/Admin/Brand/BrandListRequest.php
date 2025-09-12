@@ -2,9 +2,10 @@
 
 namespace App\Http\Requests\Admin\Brand;
 
-use App\Models\Enum\BrandStatusEnum;
+use App\Models\Brand\Enum\BrandStatusEnum;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
+
 class BrandListRequest extends FormRequest
 {
     /**
@@ -24,7 +25,7 @@ class BrandListRequest extends FormRequest
     {
         return [
             'country_id' => ['sometimes', 'nullable', 'integer', 'exists:countries,id'],
-            'status' => ['sometimes', 'nullable', 'string', Rule::in(array_keys(BrandStatusEnum::getBrandStatusMap()))],
+            'status'     => ['sometimes', 'nullable', 'string', Rule::in(array_keys(BrandStatusEnum::getBrandStatusMap()))],
         ];
     }
 }

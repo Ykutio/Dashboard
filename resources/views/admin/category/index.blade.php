@@ -1,5 +1,5 @@
 @php
-    use \App\Models\Enum\CategoryStatusEnum;
+    use App\Models\Category\Enum\CategoryStatusEnum;
 @endphp
 @extends('layouts.admin_layout')
 

@@ -1,5 +1,5 @@
 @php
-    use \App\Models\Enum\ProductStatusEnum;
+    use App\Models\Product\Enum\ProductStatusEnum;
 
 $currentPage = $products->currentPage();
 $perPage = $products->perPage();
@@ -79,8 +79,10 @@ $perPage = $products->perPage();
                     </select>
                     <!-- Search -->
                     <div class="form-inline" style="margin-right: 20px">
-                            <input class="form-control form-control-sidebar" type="search" name="search" value="@php echo !empty($filters['search']) ? $filters['search'] : ''; @endphp" placeholder="Search Product"
-                                   aria-label="Search">
+                        <input class="form-control form-control-sidebar" type="search" name="search"
+                               value="@php echo !empty($filters['search']) ? $filters['search'] : ''; @endphp"
+                               placeholder="Search Product"
+                               aria-label="Search">
                     </div>
                     <button type="submit" class="btn btn-primary btn-sm">Apply filter</button>
                     <button type="reset" class="btn btn-outline-secondary btn-sm" style="margin-left: 6px"

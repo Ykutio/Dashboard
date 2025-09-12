@@ -3,24 +3,13 @@
 @section('title', 'Main')
 
 @section('content')
+
     <!-- Content Header (Page header) -->
     <div class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
                     <h1 class="m-0">Admin Panel</h1>
-                </div>
-                <div class="col-sm-6">
-                    <ol class="breadcrumb float-sm-right">
-                        <form method="POST" action="{{ route('logout') }}">
-                            @csrf
-                            <x-responsive-nav-link :href="route('logout')"
-                                                   onclick="event.preventDefault();
-                                                this.closest('form').submit();">
-                                Log Out
-                            </x-responsive-nav-link>
-                        </form>
-                    </ol>
                 </div>
             </div>
         </div>

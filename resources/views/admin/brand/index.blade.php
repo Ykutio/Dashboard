@@ -1,5 +1,5 @@
 @php
-    use \App\Models\Enum\BrandStatusEnum;
+    use App\Models\Brand\Enum\BrandStatusEnum;
 
 $currentPage = $brands->currentPage();
 $perPage = $brands->perPage();

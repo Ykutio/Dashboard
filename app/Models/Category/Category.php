@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Category;
 
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -21,12 +21,6 @@ class Category extends Model
             ->count();
     }
 
-    public static function getAllCategoriesPaginate(): LengthAwarePaginator
-    {
-        return Category::orderBy('id', 'asc')
-            ->paginate(self::PAGE_LIMIT);
-    }
-
     public static function categoriesByFilter(array $params = []): LengthAwarePaginator
     {
         $query = Category::query();
@@ -34,11 +28,17 @@ class Category extends Model
         if (!empty($params['status'])) {
             $query->where('status', $params['status']);
         }
+
         return $query->paginate(self::PAGE_LIMIT);
     }
 
     public static function getAllCategories(): Collection
     {
         return Category::orderBy('id', 'asc')->get();
+    }
+
+    public static function getCategoryById(int $id): ?Category
+    {
+        return Category::where('id', $id)->first();
     }
 }

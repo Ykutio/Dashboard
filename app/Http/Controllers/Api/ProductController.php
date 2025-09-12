@@ -2,49 +2,57 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Constants\SortDirection;
+use App\Constants\StatusResponse;
 use App\Http\Controllers\Controller;
-use App\Models\Product;
-use Illuminate\Http\Request;
+use App\Http\Requests\Api\Product\ProductListRequest;
+use App\Http\Resources\Product\ProductResource;
+use App\Models\Product\Product;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 class ProductController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(ProductListRequest $request): JsonResponse
     {
-        return Product::all();
-    }
+        $perPage = $request->input('per_page', Product::PER_PAGE);
+        $offset = $request->input('offset', 0);
+        $sortField = $request->input('sort_field', 'id');
+        $sortDirection = $request->input('sort_direction', SortDirection::ASC);
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
+        $productCount = Product::productCount(true);
+
+        $data = Product::getProductsList($request->getApiDTO());
+
+        return response()->json([
+            'status'         => StatusResponse::SUCCESS,
+            'data'           => ProductResource::collection($data),
+            'per_page'       => $perPage,
+            'offset'         => $offset,
+            'product_count'  => $productCount,
+            'sort_field'     => $sortField,
+            'sort_direction' => $sortDirection,
+        ]);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(int $id): JsonResponse
     {
-        return Product::find($id);
-    }
+        $product = Product::getProductById($id);
+        if (empty($product)) {
+            return response()->json([
+                'status' => StatusResponse::ERROR,
+            ]);
+        }
+        $data = new ProductResource($product);
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        return response()->json([
+            'status' => StatusResponse::SUCCESS,
+            'data'   => $data,
+        ]);
     }
 }

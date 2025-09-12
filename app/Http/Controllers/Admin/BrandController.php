@@ -6,8 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Brand\BrandListRequest;
 use App\Http\Requests\Admin\Brand\StoreBrandRequest;
 use App\Http\Requests\Admin\Brand\UpdateBrandRequest;
-use App\Models\Brand;
-use App\Models\Country;
+use App\Models\Brand\Brand;
+use App\Models\Country\Country;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 
@@ -24,9 +24,9 @@ class BrandController extends Controller
         $countries = Country::getAllCountries();
 
         return view('admin.brand.index', [
-            'brands' => $brands,
+            'brands'    => $brands,
             'countries' => $countries,
-            'filters' => $validatedData
+            'filters'   => $validatedData,
         ]);
     }
 
@@ -38,7 +38,7 @@ class BrandController extends Controller
         $countries = Country::getAllCountriesPaginate();
 
         return view('admin.brand.create', [
-            'countries' => $countries
+            'countries' => $countries,
         ]);
     }
 
@@ -63,8 +63,8 @@ class BrandController extends Controller
         $countries = Country::getAllCountriesPaginate();
 
         return view('admin.brand.edit', [
-            'brand' => $brand,
-            'countries' => $countries
+            'brand'     => $brand,
+            'countries' => $countries,
         ]);
     }
 

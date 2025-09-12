@@ -6,10 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Product\ProductListRequest;
 use App\Http\Requests\Admin\Product\StoreProductRequest;
 use App\Http\Requests\Admin\Product\UpdateProductRequest;
-use App\Models\Brand;
-use App\Models\Category;
-use App\Models\Country;
-use App\Models\Product;
+use App\Models\Brand\Brand;
+use App\Models\Category\Category;
+use App\Models\Country\Country;
+use App\Models\Product\Product;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 
@@ -22,18 +22,18 @@ class ProductController extends Controller
     {
         $validatedData = $request->validated();
 
-        $products = Product::productsByFilter($validatedData);
+        $products = Product::productsByFilter($request->getDTO());
         $products->load('brand', 'category', 'country'); // To resolve "N+1 query" problem
         $brands = Brand::getAllBrands();
         $countries = Country::getAllCountries();
         $categories = Category::getAllCategories();
 
         return view('admin.product.index', [
-            'products' => $products,
-            'brands' => $brands,
-            'countries' => $countries,
+            'products'   => $products,
+            'brands'     => $brands,
+            'countries'  => $countries,
             'categories' => $categories,
-            'filters' => $validatedData
+            'filters'    => $validatedData,
         ]);
     }
 
@@ -42,14 +42,14 @@ class ProductController extends Controller
      */
     public function create(): View
     {
-        $categories = Category::getAllCategoriesPaginate();
-        $brands = Brand::getAllBrandsPaginate();
-        $countries = Country::getAllCountriesPaginate();
+        $categories = Category::getAllCategories();
+        $brands = Brand::getAllBrands();
+        $countries = Country::getAllCountries();
 
         return view('admin.product.create', [
             'categories' => $categories,
-            'brands' => $brands,
-            'countries' => $countries
+            'brands'     => $brands,
+            'countries'  => $countries,
         ]);
     }
 
@@ -59,6 +59,12 @@ class ProductController extends Controller
     public function store(StoreProductRequest $request): RedirectResponse
     {
         $validatedData = $request->validated(); // The validated data is automatically available
+
+        if ($request->hasFile('img')) {
+            $path = $request->file('img')->store('uploads', 'public');
+            $validatedData['img'] = $path;
+        }
+
         Product::create($validatedData);
 
         return redirect()
@@ -71,15 +77,15 @@ class ProductController extends Controller
      */
     public function edit(Product $product): View
     {
-        $categories = Category::getAllCategoriesPaginate();
-        $brands = Brand::getAllBrandsPaginate();
-        $countries = Country::getAllCountriesPaginate();
+        $categories = Category::getAllCategories();
+        $brands = Brand::getAllBrands();
+        $countries = Country::getAllCountries();
 
         return view('admin.product.edit', [
-            'product' => $product,
+            'product'    => $product,
             'categories' => $categories,
-            'brands' => $brands,
-            'countries' => $countries
+            'brands'     => $brands,
+            'countries'  => $countries,
         ]);
     }
 

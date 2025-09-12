@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Category\CategoryListRequest;
 use App\Http\Requests\Admin\Category\StoreCategoryRequest;
 use App\Http\Requests\Admin\Category\UpdateCategoryRequest;
-use App\Models\Category;
+use App\Models\Category\Category;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 
@@ -19,7 +19,7 @@ class CategoryController extends Controller
 
         return view('admin.category.index', [
             'categories' => $categories,
-            'filters' => $validatedData
+            'filters'    => $validatedData,
         ]);
     }
 
@@ -42,7 +42,7 @@ class CategoryController extends Controller
     public function edit(Category $category): View
     {
         return view('admin.category.edit', [
-            'category' => $category
+            'category' => $category,
         ]);
     }
 

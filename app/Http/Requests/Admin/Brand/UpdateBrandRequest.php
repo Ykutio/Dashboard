@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests\Admin\Brand;
 
-use App\Models\Enum\BrandStatusEnum;
+use App\Models\Brand\Enum\BrandStatusEnum;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
@@ -24,9 +24,9 @@ class UpdateBrandRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required', 'max:255', 'string'],
+            'name'       => ['required', 'max:255', 'string'],
             'country_id' => ['required', 'integer', 'exists:countries,id'],
-            'status' => ['required', 'string', Rule::in(array_keys(BrandStatusEnum::getBrandStatusMap()))],
+            'status'     => ['required', 'string', Rule::in(array_keys(BrandStatusEnum::getBrandStatusMap()))],
         ];
     }
 }
